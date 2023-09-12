@@ -17,7 +17,7 @@ export const Title = styled.h2`
 `
 export const Form = styled.form`
     background-color: transparent;
-    width: 50%;
+    width: ${props => props.width || "50%"};
     height: auto;
     border-radius: 5px;
     border: 1px solid #5f5a5a;
@@ -103,10 +103,12 @@ export const Botones = styled.button`
   cursor: pointer;
   border-radius: 5px;
   padding:18px;
+  width: ${props => props.width || null};
   background-color: ${props => props.color || null};
+  margin: ${props => props.margin || null};
   border: ${props => props.border || null };
   &:hover{
-    ${props => props.hoverStyle && props.hoverStyle};
+    ${props => props.hoverstyles && props.hoverstyles};
   }
 `
 export const BotonesLinks = styled(Link)`
@@ -130,4 +132,27 @@ export const BotonesLinks = styled(Link)`
 export const ContenedorBotones = styled.div`
 display:flex;
 gap: 1rem;
+`
+export const InputColor = styled.input`
+  float: right;
+  width: ${props => props.width || null};
+  height: ${props => props.height || null};
+  border-radius: 5px;
+`
+export const Table = styled.table`
+  border: 1px solid rgba(255,255,225,30%);
+  font-family: 'Roboto Mono', monospace;
+`
+export const TableTR = styled.tr`
+  border: 1px solid rgba(255,255,225,30%);
+  height: 50px;
+`
+export const TableTD = styled.td`
+  border: 1px solid rgba(255,255,225,30%);
+  width: ${props => props.width || null};
+  text-align: ${props => props.textAlign || null};
+`
+export const TableTH = styled.th`
+  border: 1px solid rgba(255,255,225,30%);
+  width: ${props => props.width || null};
 `

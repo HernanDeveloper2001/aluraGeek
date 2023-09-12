@@ -1,4 +1,4 @@
-import { ContenedorFormulario,Title,Form,ContainerInputs,Input,InputErrors,InputTextarea,InputSelect, ContenedorBotones, Botones } from "../../../styleComponents";
+import { ContenedorFormulario,Title,Form,ContainerInputs,Input,InputErrors,InputTextarea,InputSelect, ContenedorBotones, Botones, BotonesLinks } from "../../../styleComponents";
 import { useForm, Controller } from "react-hook-form"
 import { EquipmentCategoryContext } from "../../TeamsContext";
 import { useContext } from "react";
@@ -14,9 +14,11 @@ const NuevoVideo = () => {
       id:v4()
     }
   })
+
   const equipmentCategory = useContext(EquipmentCategoryContext)
   const { formData, saveFormData } = useFormData() 
-
+  console.log()
+  
   const hoverStyles = {
     save: {
       backgroundColor: "rgba(0, 200, 111, 0.698)",
@@ -50,15 +52,15 @@ const NuevoVideo = () => {
 
             <Input
               type="text" 
-                {...register("title",{
-                  required: "Este campo es requerido",
-                  minLength: {
-                    value: 1,
-                    message: "Minimo un caracter en el campo de titulo"
-                  }
-                })}
-                placeholder="title" />
-              {errors.title && <InputErrors>{errors.title?.message}</InputErrors>}
+              {...register("title",{
+                required: "Este campo es requerido",
+                minLength: {
+                  value: 1,
+                  message: "Minimo un caracter en el campo de titulo"
+                }
+              })}
+              placeholder="title" />
+            {errors.title && <InputErrors>{errors.title?.message}</InputErrors>}
 
             <Input 
               type="text"
@@ -100,15 +102,14 @@ const NuevoVideo = () => {
                       onChange(value)
                     }}
                     placeholder="Choose an option"
-                    options={equipmentCategory}
-                    getOptionLabel={(e) => e.label}
-                    getOptionValue={(e) => e.value}
+                    options={equipmentCategory.categoryList}
+                    getOptionLabel={e => e.value}           
                   />
             }} />
               {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
 
             <InputTextarea
-                {...register("comments",{
+              {...register("comments",{
                   required: "Este campo es requerido",
                   minLength: {
                     value: 1,
@@ -116,10 +117,10 @@ const NuevoVideo = () => {
                   }
                 })}
                 placeholder="add a comments" />
-              {errors.comments && <InputErrors>{errors.comments?.message}</InputErrors>}
+            {errors.comments && <InputErrors>{errors.comments?.message}</InputErrors>}
 
             <Input
-                type="text"
+              type="text"
                 {...register("securityCode",{
                   required: "Este campo es requerido",
                   minLength: {
@@ -132,11 +133,11 @@ const NuevoVideo = () => {
                   }
                 })} 
                 placeholder="Enter a security Code (xxxxxxxx)" />
-              {errors.securityCode && <InputErrors>{errors.securityCode?.message}</InputErrors>}
+            {errors.securityCode && <InputErrors>{errors.securityCode?.message}</InputErrors>}
 
             <ContenedorBotones>
                 <Botones
-                  hoverStyle={hoverStyles.save}
+                  hoverstyles={hoverStyles.save}
                   border="rgb(0, 200, 111)" 
                   color="rgb(0, 200, 111)"
                   text="save" 
@@ -144,20 +145,21 @@ const NuevoVideo = () => {
                     Save
                 </Botones>
                 <Botones
-                  hoverStyle={hoverStyles.clear}
+                  hoverstyles={hoverStyles.clear}
                   border="rgb(229, 57, 53)" 
                   color="rgb(229, 57, 53)"
                   text="clear" 
                   type="reset">
                     Clear
                 </Botones>
-                <Botones
-                  hoverStyle={hoverStyles.new_category}
+                <BotonesLinks
+                  to="/new-category"
+                  hoverstyles={hoverStyles.new_category}
                   border="rgb(42, 122, 228)"
                   color="rgb(42, 122, 228)"
                   text="new category">
                     New Category
-                </Botones>
+                </BotonesLinks>
             </ContenedorBotones>
 
           </ContainerInputs>

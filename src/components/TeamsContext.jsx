@@ -1,39 +1,35 @@
-import { createContext } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 
 export const EquipmentCategoryContext = createContext([])
 
+export const useEquipmentCategory = () => {
+  return useContext(EquipmentCategoryContext)
+}
+
 export const EquipmentCategoryProvider = ({children}) => {
 
-  const categoryList =[
-  {
-    value:"videos",
-    label:"videos",
-    colorCarta:"rgb(0, 200, 111)",
-    colorContenedorCarta:"rgba(0, 200, 111, 0.7)"
-  },
-  {
-    value:"music",
-    label:"music",
-    colorCarta:"rgb(255, 140, 42)",
-    colorContenedorCarta:"rgba(255, 140, 42, 0.7)"
-  },
-  {
-    value:"images",
-    label:"images",
-    colorCarta:"rgb(255, 186, 5)",
-    colorContenedorCarta:"rgba(255, 186, 5, 0.7)"
-  },
-  {
-    value:"gifs",
-    label:"gifs",
-    colorCarta:"rgb(220, 110, 190)",
-    colorContenedorCarta:"rgba(220, 110, 190, 0.7)"
-  }]
+  const [categoryList,setCategoryList] = useState(() => {
+    const localStorageEquipmentCategory = localStorage.getItem("categoryList")
+    try {
+      return localStorageEquipmentCategory ? JSON.parse(localStorageEquipmentCategory) : []
+    }catch(error) {
+      console.error("Error parsing JSON from localStorage:", error);
+      return [];
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem("categoryList", JSON.stringify(categoryList))
+  },[categoryList])
+
+  const saveEquipmentCategory = data => {
+    setCategoryList(data)
+  }
 
   return(
     <>
-      <EquipmentCategoryContext.Provider value={categoryList}>
+      <EquipmentCategoryContext.Provider value={{categoryList, saveEquipmentCategory}}>
         {children}
       </EquipmentCategoryContext.Provider>
     </>

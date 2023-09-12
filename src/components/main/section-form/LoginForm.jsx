@@ -100,11 +100,13 @@ const LoginForm = () => {
             <InputErrors>{errors.contraseña?.message}</InputErrors>
 
             <Botones
+              border="rgb(42, 122, 228)"
               color="rgb(42, 122, 228)"
               onClick={onHandleValid}
               type="submit"
             >Registrar
             </Botones>
+            
             {isValid === false 
             ? <MensajeRegistro style={{color:validation.invalid.color}}>{validation.invalid.value}</MensajeRegistro>
             : <MensajeRegistro style={{color:validation.valid.color}}>{validation.valid.value}</MensajeRegistro>}

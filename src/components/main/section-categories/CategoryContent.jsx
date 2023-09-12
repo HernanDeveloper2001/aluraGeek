@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { useState } from "react"
+import {AiOutlineCloseCircle} from "react-icons/ai";
 
 const ContentListing = styled.article`
   overflow-x: scroll;
@@ -22,15 +23,18 @@ const CategoryDisplay = styled.article`
   width: 400px;
   height: 400px;
   flex-direction: column;
-  margin: 0px 10px;
+  margin: 0 10px;
   border: 1px solid rgba(255,255,255, 30%);
   border-radius: 5px;
   cursor: pointer;
+  background-color: #928787;
 `
 const TitleCategoryDisplay = styled.h3`
-  font-size:25px;
+  font-size:2em;
+  text-transform: capitalize;
   text-align: center;
   font-family: 'Roboto Slab', serif;
+  margin: 0;
 `
 const ImageCategoryDisplay = styled.img`
   margin: auto;
@@ -42,34 +46,62 @@ const ImageCategoryDisplay = styled.img`
 `
 const CommentsCategoryDisplay = styled.p`
   font-size: 20px;
+  height: 100%;
   font-family: 'Roboto Slab', serif;
-  text-align: center;
 `
-
+const IconContainer = styled.div`
+  align-self: flex-end;
+  height: 40px;
+  border-radius: 5px;
+  width: 40px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+`
 const CategoryContent = ({formDataNewVideo,bColorCarta}) => {
   const [mostrarContenido, setMostrarContenido] = useState(true)
 
   function handleMouseOver(){
     setMostrarContenido(false)
+
   }
 
   function handleMouseOut(){
     setMostrarContenido(true)
   }
 
+  function handleDeleteClick(id){
+    const idCategories = id;
+    const categoriesDelete = formDataNewVideo.filter(item => item)
+    console.log(categoriesDelete)
+
+  }
+
+
   return (
     <ContentListing>
       <CategoryDisplay
+        key={formDataNewVideo.id}
         style={{backgroundColor:bColorCarta, border:bColorCarta}}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}>
-        {mostrarContenido 
+        {mostrarContenido  
         ? <>
+            <IconContainer>
+              <AiOutlineCloseCircle 
+                style={{width:"40px", height:"40px", color:"red"}}
+                onClick={()=>handleDeleteClick(formDataNewVideo.id)}/>
+            </IconContainer>
             <TitleCategoryDisplay>{formDataNewVideo.title}</TitleCategoryDisplay>
             <ImageCategoryDisplay src={formDataNewVideo.image} alt="imagen"/>
           </> 
         : <>
-            <CommentsCategoryDisplay>{formDataNewVideo.comments}</CommentsCategoryDisplay>
+            <IconContainer>
+              <AiOutlineCloseCircle
+                style={{width:"40px", height:"40px", color:"red"}}
+                onClick={()=>handleDeleteClick(formDataNewVideo.id)}/>
+            </IconContainer>
+            <CommentsCategoryDisplay >{formDataNewVideo.comments}</CommentsCategoryDisplay>
           </>
         }
       </CategoryDisplay>

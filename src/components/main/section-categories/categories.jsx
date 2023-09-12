@@ -3,6 +3,7 @@ import CategoryContent from "./CategoryContent";
 import { EquipmentCategoryContext } from "../../TeamsContext";
 import { useContext } from "react";
 import { FormDataContext } from "../../formDataContext";
+import { InputColor,Title } from "../../../styleComponents";
 
 
 const CategoryContainer = styled.main`
@@ -14,13 +15,6 @@ const CategoryContainer = styled.main`
   align-items: center;
   border-bottom: 1px solid rgba(255,255,255, 30%);
 ;
-`
-const CategoryTitle = styled.h1`
-  text-align: center;
-  font-size: 7rem;
-  font-family: 'Roboto Mono', monospace;
-  text-shadow: 5px 5px 5px rgba(255, 255, 255,40%);
-  padding: 40px 0;
 `
 const SectionCategorySubTitle = styled.h2`
   font-size: 40px;
@@ -39,16 +33,17 @@ const Categories = () => {
 
   return (
     <CategoryContainer>
-      <CategoryTitle>Categories</CategoryTitle>
-      {equipmentCategory.map((item,i) => {
+      <Title>Categories</Title>
+      {equipmentCategory.categoryList.map((item) => {
         const category = item.value;
         const bColorCarta = item.colorCarta
         const bColorContainer = item.colorContenedorCarta;
         const categoryForm = formDataNewVideo.formData.formData.filter(item => item.category === category)
 
         return(
-          <CategoriesSection key={i} style={{backgroundColor:bColorContainer, border:bColorContainer}}>
+          <CategoriesSection key={item.id} style={{background:bColorContainer}}>
             <>
+              <InputColor type="color" />
               <SectionCategorySubTitle>{category}</SectionCategorySubTitle>
             </>
             <div style={{display:"flex"}}>
