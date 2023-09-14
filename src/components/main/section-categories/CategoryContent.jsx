@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useState } from "react"
 import {AiOutlineCloseCircle} from "react-icons/ai";
+import { useFormData } from "../../formDataContext";
 
 const ContentListing = styled.article`
   overflow-x: scroll;
@@ -27,22 +28,24 @@ const CategoryDisplay = styled.article`
   border: 1px solid rgba(255,255,255, 30%);
   border-radius: 5px;
   cursor: pointer;
-  background-color: #928787;
+  position: relative;
 `
 const TitleCategoryDisplay = styled.h3`
-  font-size:2em;
+  color: #00C86F;
+  font-size:2.5vw;
   text-transform: capitalize;
   text-align: center;
   font-family: 'Roboto Slab', serif;
   margin: 0;
+  z-index: 99;
 `
 const ImageCategoryDisplay = styled.img`
   margin: auto;
-  object-fit: contain;
-  border-radius: 5px;
+  object-fit: cover;
   border-radius: 50%;
-  width: 70%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 `
 const CommentsCategoryDisplay = styled.p`
   font-size: 20px;
@@ -58,31 +61,42 @@ const IconContainer = styled.div`
   justify-content: end;
   align-items: center;
 `
-const CategoryContent = ({formDataNewVideo,bColorCarta}) => {
+const Text = styled.p`
+  color: #00C86F;
+  font-size:14px;
+  font-style: italic;
+  font-family: 'Roboto Slab', serif;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+`
+const CategoryContent = ({formDataNewVideo}) => {
   const [mostrarContenido, setMostrarContenido] = useState(true)
-
+  const {formData, saveFormData} = useFormData()
+  const [tableData, setTableData] = useState(formData.formData);
+  
+  const {title, comments, id, image, video, securityCode} = formDataNewVideo;
+  
   function handleMouseOver(){
     setMostrarContenido(false)
-
   }
-
   function handleMouseOut(){
     setMostrarContenido(true)
   }
 
-  function handleDeleteClick(id){
-    const idCategories = id;
-    const categoriesDelete = formDataNewVideo.filter(item => item)
-    console.log(categoriesDelete)
-
+  const handleRemove = (id) => {
+    const updateTableData = tableData.filter(item => item.id !== id)
+    setTableData(updateTableData) 
+    saveFormData({formData:updateTableData})
   }
-
 
   return (
     <ContentListing>
       <CategoryDisplay
-        key={formDataNewVideo.id}
-        style={{backgroundColor:bColorCarta, border:bColorCarta}}
+        key={`Category-display-${id}`}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}>
         {mostrarContenido  
@@ -90,18 +104,24 @@ const CategoryContent = ({formDataNewVideo,bColorCarta}) => {
             <IconContainer>
               <AiOutlineCloseCircle 
                 style={{width:"40px", height:"40px", color:"red"}}
-                onClick={()=>handleDeleteClick(formDataNewVideo.id)}/>
+                onClick={()=>handleRemove(id)}
+                />
             </IconContainer>
-            <TitleCategoryDisplay>{formDataNewVideo.title}</TitleCategoryDisplay>
-            <ImageCategoryDisplay src={formDataNewVideo.image} alt="imagen"/>
+            <TitleCategoryDisplay>{title}</TitleCategoryDisplay>
+            <ImageCategoryDisplay src={image} alt="imagen"/>
+            <Text>{`Code: ${securityCode}`}</Text>
           </> 
         : <>
             <IconContainer>
               <AiOutlineCloseCircle
                 style={{width:"40px", height:"40px", color:"red"}}
-                onClick={()=>handleDeleteClick(formDataNewVideo.id)}/>
+                onClick={()=>handleRemove(id)}
+                />
             </IconContainer>
-            <CommentsCategoryDisplay >{formDataNewVideo.comments}</CommentsCategoryDisplay>
+            <CommentsCategoryDisplay>
+              Comments:<br></br>
+              {comments}
+            </CommentsCategoryDisplay>
           </>
         }
       </CategoryDisplay>

@@ -9,7 +9,7 @@ export const ContenedorFormulario = styled.section`
   align-items: center;
 `
 export const Title = styled.h2`
-  font-size: 70px;
+  font-size: 6vw;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
   padding: 50px;
@@ -27,9 +27,10 @@ export const Form = styled.form`
   `
 export const SubTitle = styled.h3`
   color: #fff;
-  font-size: 40px;
+  font-size: 2.5vw;
   text-align: center;
   font-family: 'Roboto Mono', monospace;
+
 `
 export const ContainerInputs = styled.div`
   display: flex;
@@ -112,21 +113,20 @@ export const Botones = styled.button`
   }
 `
 export const BotonesLinks = styled(Link)`
+  width: ${props => props.width || null};
   text-decoration: none;
   font-size: 18px;
-  padding:18px;
   text-align: center;
+  padding:18px;
   font-family: 'Roboto Mono', monospace;
   cursor: pointer;
   border-radius: 5px;
-  background-color: rgb(42, 122, 228);
-  border:1px solid rgb(42, 122, 228);
+  background-color: ${props => props.color || "rgb(42, 122, 228)"};
+  border:${props => props.border || null};
   color:#fff;
-  float: right;
 
   &:hover {
-    background-color: rgba(42, 122, 228, 0.7); 
-    color: #fff;
+    ${props => props.hoverstyles && props.hoverstyles }; 
   }
 `
 export const ContenedorBotones = styled.div`
@@ -142,6 +142,7 @@ export const InputColor = styled.input`
 export const Table = styled.table`
   border: 1px solid rgba(255,255,225,30%);
   font-family: 'Roboto Mono', monospace;
+  width:70%;
 `
 export const TableTR = styled.tr`
   border: 1px solid rgba(255,255,225,30%);
@@ -151,6 +152,21 @@ export const TableTD = styled.td`
   border: 1px solid rgba(255,255,225,30%);
   width: ${props => props.width || null};
   text-align: ${props => props.textAlign || null};
+  max-height: ${props => props.maxHeight || null};
+  text-align: center;
+  overflow-y: ${props => props.overflowY || null};
+  overflow-x: ${props => props.overflowX || null};
+  &::-webkit-scrollbar{
+    width: 15px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background-color: rgba(255,255,255, 30%);
+    border-radius: 50px;
+  }
+  &::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(255,255,255, 20%);
+    cursor: pointer;
+  }
 `
 export const TableTH = styled.th`
   border: 1px solid rgba(255,255,225,30%);

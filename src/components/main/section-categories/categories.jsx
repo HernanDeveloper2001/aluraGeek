@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import CategoryContent from "./CategoryContent";
-import { EquipmentCategoryContext } from "../../TeamsContext";
-import { useContext } from "react";
-import { FormDataContext } from "../../formDataContext";
+import { useEquipmentCategory } from "../../TeamsContext";
+import { useFormData } from "../../formDataContext";
 import { InputColor,Title } from "../../../styleComponents";
+import { useState } from "react";
 
 
 const CategoryContainer = styled.main`
@@ -17,7 +17,7 @@ const CategoryContainer = styled.main`
 ;
 `
 const SectionCategorySubTitle = styled.h2`
-  font-size: 40px;
+  font-size: 4vw;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
 ` 
@@ -28,22 +28,31 @@ const CategoriesSection = styled.section`
   width: 95%;
 `
 const Categories = () => {
-  const equipmentCategory = useContext(EquipmentCategoryContext)
-  const formDataNewVideo = useContext(FormDataContext)
+
+  const {categoryList} = useEquipmentCategory()
+  const { formData } = useFormData() 
+  const [containerColor, setContainerColor] = useState(() => categoryList.map((item) => item.color))
+
+  function handleColor(event, index) {
+    const color = event.target.value;
+    const updateColors = [...containerColor];
+    updateColors[index] = color;
+    setContainerColor(updateColors);
+  }
 
   return (
     <CategoryContainer>
       <Title>Categories</Title>
-      {equipmentCategory.categoryList.map((item) => {
+      {categoryList.map((item,i) => {
         const category = item.value;
-        const bColorCarta = item.colorCarta
-        const bColorContainer = item.colorContenedorCarta;
-        const categoryForm = formDataNewVideo.formData.formData.filter(item => item.category === category)
-
+        const categoryForm = formData.formData.filter(item => item.category === category)
         return(
-          <CategoriesSection key={item.id} style={{background:bColorContainer}}>
+          <CategoriesSection key={i} style={{background:containerColor[i]}}>
             <>
-              <InputColor type="color" />
+              <InputColor 
+                type="color" 
+                onChange={(event) => handleColor(event,i)}
+                value={containerColor[i]} />
               <SectionCategorySubTitle>{category}</SectionCategorySubTitle>
             </>
             <div style={{display:"flex"}}>
@@ -51,7 +60,6 @@ const Categories = () => {
               <CategoryContent
                 key={j}
                 formDataNewVideo={item}
-                bColorCarta={bColorCarta}
               /> 
             ))}
             </div>

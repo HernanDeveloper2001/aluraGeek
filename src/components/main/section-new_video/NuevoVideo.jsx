@@ -1,27 +1,18 @@
 import { ContenedorFormulario,Title,Form,ContainerInputs,Input,InputErrors,InputTextarea,InputSelect, ContenedorBotones, Botones, BotonesLinks } from "../../../styleComponents";
 import { useForm, Controller } from "react-hook-form"
-import { EquipmentCategoryContext } from "../../TeamsContext";
-import { useContext } from "react";
+import { useEquipmentCategory } from "../../TeamsContext";
 import { useFormData } from "../../formDataContext";
-import { v4  } from "uuid";
+import { nanoid } from "nanoid";
 
 
 
 const NuevoVideo = () => {
-
-  const { register, handleSubmit, formState:{errors, isValid}, control, reset} = useForm({
-    defaultValues:{
-      id:v4()
-    }
-  })
-
-  const equipmentCategory = useContext(EquipmentCategoryContext)
+  const { register, handleSubmit, formState:{errors, isValid}, control, reset} = useForm()
+  const {categoryList} = useEquipmentCategory()
   const { formData, saveFormData } = useFormData() 
-  console.log()
-  
   const hoverStyles = {
     save: {
-      backgroundColor: "rgba(0, 200, 111, 0.698)",
+      backgroundColor: "rgba(0, 200, 111, 0.7)",
       border: "rgb(0, 200, 111)"
     },
     clear: {
@@ -33,18 +24,21 @@ const NuevoVideo = () => {
       border: "rgb(42, 122, 228)"
     }
   };
-
+  
   return(
     <ContenedorFormulario>
 
-      <Title>Nuevo video</Title>
+      <Title>New video</Title>
 
         <Form onSubmit={handleSubmit((data) => {
           if(isValid){
+            const newFormData = {
+              ...data,
+              id:nanoid()
+            }
             const currentData = formData.formData || []
-            const newData = [...currentData, data]
+            const newData = [...currentData, newFormData]
             saveFormData({formData:newData});
-            console.log({formData:newData})
             reset()
           }
         })}>
@@ -102,11 +96,11 @@ const NuevoVideo = () => {
                       onChange(value)
                     }}
                     placeholder="Choose an option"
-                    options={equipmentCategory.categoryList}
+                    options={categoryList}
                     getOptionLabel={e => e.value}           
                   />
             }} />
-              {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
+            {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
 
             <InputTextarea
               {...register("comments",{
@@ -158,7 +152,7 @@ const NuevoVideo = () => {
                   border="rgb(42, 122, 228)"
                   color="rgb(42, 122, 228)"
                   text="new category">
-                    New Category
+                  New Category
                 </BotonesLinks>
             </ContenedorBotones>
 
