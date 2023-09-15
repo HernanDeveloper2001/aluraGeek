@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import {AiOutlineCloseCircle} from "react-icons/ai";
 import { useFormData } from "../../formDataContext";
+import { Botones, Input } from "../../../styleComponents";
 
 const ContentListing = styled.article`
   overflow-x: scroll;
@@ -29,6 +30,10 @@ const CategoryDisplay = styled.article`
   border-radius: 5px;
   cursor: pointer;
   position: relative;
+`
+const CategoryContainerCode = styled.div`
+  margin: 0 10px;
+  border-radius: 5px;
 `
 const TitleCategoryDisplay = styled.h3`
   color: #00C86F;
@@ -77,8 +82,27 @@ const CategoryContent = ({formDataNewVideo}) => {
   const [mostrarContenido, setMostrarContenido] = useState(true)
   const {formData, saveFormData} = useFormData()
   const [tableData, setTableData] = useState(formData.formData);
+  const hoverStyles = {
+    enter: {
+      backgroundColor: "rgba(0, 200, 111, 0.698)",
+    },
+    cancel: {
+      backgroundColor: "rgba(229, 57, 53, 0.7)",
+    },
+  };
   
   const {title, comments, id, image, video, securityCode} = formDataNewVideo;
+
+  const [codeSecurity, setCodeSecurity] = useState("")
+  const [codeWindow, setCodeWindow] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+
+  function openCodeWindow() {
+    setCodeWindow(true);
+  }
+  function closeCodeWindow(){
+    setCodeWindow(false);
+  }
   
   function handleMouseOver(){
     setMostrarContenido(false)
@@ -86,12 +110,34 @@ const CategoryContent = ({formDataNewVideo}) => {
   function handleMouseOut(){
     setMostrarContenido(true)
   }
-
   const handleRemove = (id) => {
-    const updateTableData = tableData.filter(item => item.id !== id)
-    setTableData(updateTableData) 
-    saveFormData({formData:updateTableData})
+    setSelectedItemId(id)
+    openCodeWindow()
   }
+  function handlerCodeSecurity(e){
+    const codeSecurity = e.target.value
+    const codeMatch = formData.formData.map((item,i) => item.securityCode[i] === codeSecurity)
+    if(!codeMatch){
+      alert("El codigo de seguridad no coincide")
+    }
+    setCodeSecurity(codeSecurity)
+  }
+  const confirmRemove = () => {
+    // Verificar si el código de seguridad es correcto aquí antes de eliminar
+    const codeMatch = Object.values(formData.formData).some((item) => item.securityCode === codeSecurity);
+  
+    if (codeMatch) {
+      // Eliminar el elemento de tableData y actualizar formData
+      const updatedTableData = tableData.filter((item) => item.id !== selectedItemId);
+      setTableData(updatedTableData);
+      saveFormData({ formData: updatedTableData });
+    } else {
+      alert("El código de seguridad no coincide.");
+    }
+  
+    closeCodeWindow();
+  };
+  
 
   return (
     <ContentListing>
@@ -125,6 +171,29 @@ const CategoryContent = ({formDataNewVideo}) => {
           </>
         }
       </CategoryDisplay>
+        {selectedItemId === id && codeWindow && (
+          <CategoryContainerCode>
+            <p style={{fontFamily:"Roboto Slab"}}>Ingresa código de seguridad</p>
+            <Input
+              width="50%"
+              name="codeSecurity" 
+              value={codeSecurity} 
+              placeholder="Enter code security"
+              onChange={handlerCodeSecurity} />
+            <Botones
+              hoverstyles={hoverStyles.enter}
+              color="rgb(0, 200, 111)"
+              border="rgb(0, 200, 111)"
+              padding="5px"
+              onClick={confirmRemove} >Enter</Botones>
+            <Botones
+              hoverstyles={hoverStyles.cancel}
+              padding="5px"
+              color="rgb(229, 57, 53)"
+              border="rgb(229, 57, 53)"
+              onClick={closeCodeWindow} >Cancel</Botones>
+          </CategoryContainerCode>
+        )}
     </ContentListing>
   )
 }

@@ -40,7 +40,7 @@ export const ContainerInputs = styled.div`
 `
 export const Input = styled.input`
   height: 50px;
-  width: 100%;
+  width: ${props => props.width || "100%"}
   outline: none;
   font-size:18px;
   font-family: 'Roboto Mono', monospace;
@@ -103,7 +103,7 @@ export const Botones = styled.button`
   font-family: 'Roboto Mono', monospace;
   cursor: pointer;
   border-radius: 5px;
-  padding:18px;
+  padding:${props => props.padding || "18px"};
   width: ${props => props.width || null};
   background-color: ${props => props.color || null};
   margin: ${props => props.margin || null};

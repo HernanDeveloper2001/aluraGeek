@@ -3,7 +3,7 @@ import CategoryContent from "./CategoryContent";
 import { useEquipmentCategory } from "../../TeamsContext";
 import { useFormData } from "../../formDataContext";
 import { InputColor,Title } from "../../../styleComponents";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const CategoryContainer = styled.main`
@@ -31,7 +31,22 @@ const Categories = () => {
 
   const {categoryList} = useEquipmentCategory()
   const { formData } = useFormData() 
-  const [containerColor, setContainerColor] = useState(() => categoryList.map((item) => item.color))
+  const [containerColor, setContainerColor] = useState(() => {
+    const storedColors = JSON.parse(localStorage.getItem("containerColor")) || [];
+
+    if(storedColors.length !== categoryList.length){
+      return categoryList.map((item) => item.color)
+    }
+    return storedColors
+  })
+
+  useEffect(() => {
+    // Cuando los colores cambian, guárdalos en el localStorage
+    localStorage.setItem("containerColor", JSON.stringify(containerColor));
+  }, [containerColor]);
+
+
+
 
   function handleColor(event, index) {
     const color = event.target.value;

@@ -27,7 +27,13 @@ const NewCategory = () => {
     },
     new_category: {
       backgroundColor: "rgba(42, 122, 228, 0.7)",
-    }
+    },
+    enter: {
+      backgroundColor: "rgba(0, 200, 111, 0.698)",
+    },
+    cancel: {
+      backgroundColor: "rgba(229, 57, 53, 0.7)",
+    },
   };
 
   const [codeSecurity, setCodeSecurity] = useState("")
@@ -55,6 +61,7 @@ const NewCategory = () => {
     setSelectedItemId(id)
     openCodeWindow()
   }
+  
   const confirmRemove = () => {
     // Verificar si el código de seguridad es correcto aquí antes de eliminar
     const codeMatch = Object.values(formData.formData).some((item) => item.securityCode === codeSecurity);
@@ -185,17 +192,17 @@ const NewCategory = () => {
                     </TableTD>
                     <TableTD>
                       <Botones
-                        hoverstyles={hoverStyles.save}
+                        hoverstyles={hoverStyles.enter}
                         onClick={confirmRemove} 
                         width="100%"
                         color="rgb(0, 200, 111)"
-                        border="rgb(229, 57, 53)">
+                        border="rgb(0, 200, 111)">
                           Enter
                       </Botones>
                     </TableTD>
                     <TableTD>
                     <Botones
-                      hoverstyles={hoverStyles.clear}
+                      hoverstyles={hoverStyles.cancel}
                       onClick={closeCodeWindow} 
                       width="100%"
                       color="rgb(229, 57, 53)"
