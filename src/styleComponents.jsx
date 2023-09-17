@@ -12,7 +12,7 @@ export const Title = styled.h2`
   font-size: 6vw;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
-  padding: 50px;
+  padding: 10px;
   text-shadow: 5px 5px 5px rgba(255,255,255, 30%);
 `
 export const Form = styled.form`
@@ -24,6 +24,7 @@ export const Form = styled.form`
     box-shadow: 10px 10px 10px -10px;
     padding: 30px 30px;
     margin-bottom: 40px;
+    margin: ${props => props.margin || "none"};
   `
 export const SubTitle = styled.h3`
   color: #fff;
@@ -40,30 +41,35 @@ export const ContainerInputs = styled.div`
 `
 export const Input = styled.input`
   height: 50px;
-  width: ${props => props.width || "100%"}
-  outline: none;
-  font-size:18px;
-  font-family: 'Roboto Mono', monospace;
   text-indent: 20px;
+  border-radius: 5px;
+  border: none;
+  font-family: 'Roboto Mono', monospace;
+  color:#fff;
+  background-color: transparent;
+  font-size: 1.2vw;
   box-sizing: border-box;
-  border-radius:5px;
-  border:1px solid #000;
+  outline: none;
+  border-bottom: 1px solid #ccc;
+  width: ${props => props.width || "100%"}
 `
 export const InputTextarea = styled.textarea`
   outline: none;
-  font-size:18px;
+  background-color:transparent;
+  font-size: 1.2vw;
+  border: none;
+  border-bottom: 1px solid #ccc;
   height: 150px;
-  font-family: 'Roboto Mono', monospace;
   padding: 20px;
+  color: #fff;
+  font-family: 'Roboto Mono', monospace;
   resize: none;
   overflow-y: scroll;
   overflow-x: hidden;
   box-sizing: border-box;
   border-radius: 5px;
-  border: 1px solid #000;
   &::-webkit-scrollbar{
     width: 15px;
-    
   }
   &::-webkit-scrollbar-thumb{
     background-color: rgba(0,0,0,50%);
@@ -91,14 +97,14 @@ export const MensajeRegistro = styled.p`
 export const InputSelect = styled(Select)`
   height: 50px;
   width: 100%;
-  outline: none;
+  outline-color: none;
   font-size:18px;
   font-family: 'Roboto Mono', monospace;
   text-indent: 20px;
   color:#000;
 `
 export const Botones = styled.button`
-  font-size: 18px;
+  font-size: 1vw;
   color:#fff;
   font-family: 'Roboto Mono', monospace;
   cursor: pointer;
@@ -115,7 +121,7 @@ export const Botones = styled.button`
 export const BotonesLinks = styled(Link)`
   width: ${props => props.width || null};
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1vw;
   text-align: center;
   padding:18px;
   font-family: 'Roboto Mono', monospace;
@@ -130,8 +136,10 @@ export const BotonesLinks = styled(Link)`
   }
 `
 export const ContenedorBotones = styled.div`
-display:flex;
-gap: 1rem;
+  display:flex;
+  gap: 1rem;
+  margin: ${props => props.margin || "none"};
+  justify-content: ${props => props.justifyContent || "none"};
 `
 export const InputColor = styled.input`
   float: right;
@@ -142,7 +150,9 @@ export const InputColor = styled.input`
 export const Table = styled.table`
   border: 1px solid rgba(255,255,225,30%);
   font-family: 'Roboto Mono', monospace;
-  width:70%;
+  width:${props => props.width || "100%"};
+  font-size: 1.2vw;
+
 `
 export const TableTR = styled.tr`
   border: 1px solid rgba(255,255,225,30%);
@@ -156,6 +166,7 @@ export const TableTD = styled.td`
   text-align: center;
   overflow-y: ${props => props.overflowY || null};
   overflow-x: ${props => props.overflowX || null};
+  font-weight: 300;
   &::-webkit-scrollbar{
     width: 15px;
   }
@@ -171,4 +182,7 @@ export const TableTD = styled.td`
 export const TableTH = styled.th`
   border: 1px solid rgba(255,255,225,30%);
   width: ${props => props.width || null};
+  font-weight: 800;
+  color: red;
 `
+

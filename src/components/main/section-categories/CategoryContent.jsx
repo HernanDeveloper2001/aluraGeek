@@ -56,18 +56,27 @@ const CommentsCategoryDisplay = styled.p`
   font-size: 20px;
   height: 100%;
   font-family: 'Roboto Slab', serif;
+  overflow-y: scroll;
+  &::-webkit-scrollbar{
+    width: 15px;
+    background-color: rgba(255,255,255, 30%);
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 50px;
+  }
+  &::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(255,255,255, 20%);
+    cursor: pointer;
+  }
 `
 const IconContainer = styled.div`
-  align-self: flex-end;
   height: 40px;
   border-radius: 5px;
   width: 40px;
   display: flex;
-  justify-content: end;
-  align-items: center;
+  align-self: end;
 `
 const Text = styled.p`
-  color: #00C86F;
   font-size:14px;
   font-style: italic;
   font-family: 'Roboto Slab', serif;
@@ -78,24 +87,31 @@ const Text = styled.p`
   left: 0;
   z-index: 99;
 `
-const CategoryContent = ({formDataNewVideo}) => {
+const CategoryContent = ({formDataNewVideo,containerColor}) => {
   const [mostrarContenido, setMostrarContenido] = useState(true)
   const {formData, saveFormData} = useFormData()
   const [tableData, setTableData] = useState(formData.formData);
   const hoverStyles = {
-    enter: {
+    verde: {
       backgroundColor: "rgba(0, 200, 111, 0.698)",
     },
-    cancel: {
+    rojo: {
       backgroundColor: "rgba(229, 57, 53, 0.7)",
     },
   };
-  
   const {title, comments, id, image, video, securityCode} = formDataNewVideo;
-
-  const [codeSecurity, setCodeSecurity] = useState("")
   const [codeWindow, setCodeWindow] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
+  const [showVideo, setShowVideo] = useState(false);
+
+  function handleVideoOpen(id){
+    setSelectedItemId(id)
+    setShowVideo(true)
+    console.log(id)
+  }
+  function handleVideoClose(){
+    setShowVideo(false)
+  }
 
   function openCodeWindow() {
     setCodeWindow(true);
@@ -103,45 +119,51 @@ const CategoryContent = ({formDataNewVideo}) => {
   function closeCodeWindow(){
     setCodeWindow(false);
   }
-  
   function handleMouseOver(){
     setMostrarContenido(false)
   }
   function handleMouseOut(){
     setMostrarContenido(true)
   }
-  const handleRemove = (id) => {
+  function handleRemove(id){
     setSelectedItemId(id)
     openCodeWindow()
   }
+  const [codeSecurity, setCodeSecurity] = useState("")
   function handlerCodeSecurity(e){
-    const codeSecurity = e.target.value
-    const codeMatch = formData.formData.map((item,i) => item.securityCode[i] === codeSecurity)
-    if(!codeMatch){
-      alert("El codigo de seguridad no coincide")
+    const codeSecurityValue = e.target.value;
+    const codeFormData = formData.formData.map((item,i) => item.securityCode[i] === codeSecurityValue)
+    if(!codeFormData){
+      console.log("false")
     }
-    setCodeSecurity(codeSecurity)
+    setCodeSecurity(codeSecurityValue)
   }
-  const confirmRemove = () => {
+  const [intentos, setIntentos] = useState(3);
+  function confirmRemove(){
     // Verificar si el código de seguridad es correcto aquí antes de eliminar
-    const codeMatch = Object.values(formData.formData).some((item) => item.securityCode === codeSecurity);
-  
-    if (codeMatch) {
+    const codeFormData = Object.values(formData.formData).some(item => item.securityCode === codeSecurity && item.id === id)
+    let intetoscode = 1
+    if (codeFormData) {
       // Eliminar el elemento de tableData y actualizar formData
       const updatedTableData = tableData.filter((item) => item.id !== selectedItemId);
       setTableData(updatedTableData);
       saveFormData({ formData: updatedTableData });
-    } else {
-      alert("El código de seguridad no coincide.");
     }
-  
-    closeCodeWindow();
-  };
+    else if(intetoscode < intentos){
+      alert("El código de seguridad no coincide.");
+      setIntentos(intentos - 1)
+    }
+    else{
+      alert("ninguno de los codigos coincide")
+      closeCodeWindow();
+    }
+  }
   
 
   return (
     <ContentListing>
       <CategoryDisplay
+        // style={{background:containerColor}}
         key={`Category-display-${id}`}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}>
@@ -153,9 +175,11 @@ const CategoryContent = ({formDataNewVideo}) => {
                 onClick={()=>handleRemove(id)}
                 />
             </IconContainer>
-            <TitleCategoryDisplay>{title}</TitleCategoryDisplay>
+            <TitleCategoryDisplay
+              >{title}</TitleCategoryDisplay>
             <ImageCategoryDisplay src={image} alt="imagen"/>
-            <Text>{`Code: ${securityCode}`}</Text>
+            <Text
+              >{`Code: ${securityCode}`}</Text>
           </> 
         : <>
             <IconContainer>
@@ -168,12 +192,34 @@ const CategoryContent = ({formDataNewVideo}) => {
               Comments:<br></br>
               {comments}
             </CommentsCategoryDisplay>
+            {
+              showVideo 
+              ? <Botones
+                  hoverstyles={hoverStyles.rojo}
+                  width="40%"
+                  padding="5px"
+                  color="rgb(229, 57, 53)"
+                  border="rgb(229, 57, 53)"
+                  onClick={() => handleVideoClose(id)}>ocultar</Botones>
+              : <Botones
+                  hoverstyles={hoverStyles.verde}
+                  padding="5px"
+                  width="40%"
+                  color="rgb(0, 200, 111)"
+                  border="rgb(0, 200, 111)"
+                  onClick={() => handleVideoOpen(id)}>Ver video</Botones>
+            }
           </>
         }
       </CategoryDisplay>
         {selectedItemId === id && codeWindow && (
           <CategoryContainerCode>
-            <p style={{fontFamily:"Roboto Slab"}}>Ingresa código de seguridad</p>
+            <p 
+              style={{
+                fontFamily:"Roboto Slab",}}>Ingresa código de seguridad</p>
+            <p 
+              style={{
+                fontFamily:"Roboto Slab",}}>Tienes {intentos} intentos</p>
             <Input
               width="50%"
               name="codeSecurity" 
@@ -181,13 +227,13 @@ const CategoryContent = ({formDataNewVideo}) => {
               placeholder="Enter code security"
               onChange={handlerCodeSecurity} />
             <Botones
-              hoverstyles={hoverStyles.enter}
+              hoverstyles={hoverStyles.verde}
               color="rgb(0, 200, 111)"
               border="rgb(0, 200, 111)"
               padding="5px"
               onClick={confirmRemove} >Enter</Botones>
             <Botones
-              hoverstyles={hoverStyles.cancel}
+              hoverstyles={hoverStyles.rojo}
               padding="5px"
               color="rgb(229, 57, 53)"
               border="rgb(229, 57, 53)"
