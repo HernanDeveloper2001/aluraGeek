@@ -34,7 +34,7 @@ const NewCategory = () => {
     setColor(event.target.value)
   }
   //CodeSecurity
-  const [showCodeWindow, setShowCodeWindow] = useState(false); // estado de la ventana del codeSecurity
+  const [showCodeWindow, setShowCodeWindow] = useState(false); // estado de la ventana del codeSecurity por defecto
   const [selectedIdCode, setSelectedIdCode] = useState(null); // id de la ventana del click del boton remove
   const [openRemoveEvent, setOpenRemoveEvent] = useState(null);
   //estado de la ventana del codeSecurity = true
@@ -85,7 +85,31 @@ const NewCategory = () => {
   }
 
   //Details category
+  const [showCategoryDetails, setShowCategoryDetails] = useState(false);//estado de la ventana del categoryDetails por defecto
   const [openEditEvent, setOpenEditEvent] = useState(null);
+  const [selectedIdDetails, setSelectedIdDetails] = useState(null) //id de la ventana del click del boton categoryDetails
+  //estado de la ventana del categoryDetails = true
+  function openCategoryDetails(){
+    setShowCategoryDetails(true)
+  }
+  //estado de la ventana del categoryDetails = false
+  function closeCategoryDetails(){
+    setShowCategoryDetails(false)
+  }
+
+  const [idCategoryDetails, setIdCategoryDetails] = useState(null)
+  // console.log(idCategoryDetails)
+  // id de la ventana del click del boton edit
+  function handleCategoryDetails(id){
+    const idCategory = formData.formData.find(item => item.id)
+    if(idCategory){
+      setSelectedIdDetails(id)
+      openCategoryDetails()
+      setIdCategoryDetails(idCategory)
+    }else{
+      console.log("no se encontraron valores")
+    }
+  }
   return (
     <ContenedorFormulario>
       <Title>New Category</Title>
@@ -159,7 +183,7 @@ const NewCategory = () => {
             return(
               <tbody key={i}>
                 <TableTR key={`table-of-content-${i}`}>
-                  
+
                   <TableTD>
                     {item.category}
                   </TableTD>
@@ -172,14 +196,15 @@ const NewCategory = () => {
                     <Botones
                       hoverstyles={hoverStyles.amarillo}
                       onClick={() => {
-                        handleDetails(item.id);
                         if (openEditEvent === item.id) {
                           setOpenEditEvent(null); // Cierra el evento "Edit" si ya estaba abierto
                         } else {
+                          handleCategoryDetails(item.id)
                           setOpenEditEvent(item.id);
                           setOpenRemoveEvent(null); // Cierra el evento "Remove" si está abierto
                         }
                       }}
+                      width="100%"
                       color="rgb(255, 186, 5)"
                       border="rgb(255, 186, 5)">
                       Edit
@@ -222,6 +247,7 @@ const NewCategory = () => {
                           placeholder="Enter code security"
                           onChange={inputCodeSecurity} />
                       </TableTD>
+
                       <TableTD>
                         <Botones
                           hoverstyles={hoverStyles.enter}
@@ -244,7 +270,61 @@ const NewCategory = () => {
                       </TableTD>
                     </>
                   ): null
-                ):null}
+                ):(selectedIdDetails === item.id  &&  openEditEvent === item.id)  &&
+                  showCategoryDetails
+                  ?(
+                    <TableTR>
+                      <TableTH >
+                        update data
+                      </TableTH>
+                      <TableTD>
+                        <ContainerInputs>
+                          <Input 
+                            placeholder="title"
+                            value={idCategoryDetails.title}
+                            onChange={setIdCategoryDetails}>
+                          </Input>
+                          <Input 
+                            placeholder="video"
+                            value={idCategoryDetails.video}
+                            onChange={setIdCategoryDetails}>
+                          </Input>
+                          <Input 
+                            placeholder="image"
+                            value={idCategoryDetails.image}
+                            onChange={setIdCategoryDetails}>
+                              
+                          </Input>
+                          <Input 
+                            placeholder="comments"
+                            value={idCategoryDetails.category}
+                            onChange={setIdCategoryDetails}>
+                          </Input>
+                          <Input 
+                            placeholder=""
+                            value={idCategoryDetails.comments}
+                            onChange={setIdCategoryDetails}>
+                          </Input>
+                          <Botones
+                            hoverstyles={hoverStyles.enter}
+                            width="100%"
+                            color="rgb(0, 200, 111)"
+                            border="rgb(0, 200, 111)">
+                              Enter
+                          </Botones>
+                          <Botones
+                            hoverstyles={hoverStyles.cancel}
+                            onClick={closeCategoryDetails} 
+                            width="100%"
+                            color="rgb(229, 57, 53)"
+                            border="rgb(229, 57, 53)">
+                              Cancel
+                          </Botones>
+                        </ContainerInputs>
+                      </TableTD>
+                    </TableTR>
+                  ):null
+                }
               </tbody>
           )})}
       </Table>
