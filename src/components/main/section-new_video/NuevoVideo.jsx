@@ -66,7 +66,7 @@ const NuevoVideo = () => {
                   }
                 })}
                 placeholder="Link video" />
-              {errors.video && <InputErrors>{errors.video?.message}</InputErrors>}
+            {errors.video && <InputErrors>{errors.video?.message}</InputErrors>}
 
             <Input 
                 type="text"
@@ -78,7 +78,7 @@ const NuevoVideo = () => {
                   }
                 })}
                 placeholder="Link image" />
-              {errors.image && <InputErrors>{errors.image?.message}</InputErrors>}
+            {errors.image && <InputErrors>{errors.image?.message}</InputErrors>}
 
             <Controller
                 control={control}

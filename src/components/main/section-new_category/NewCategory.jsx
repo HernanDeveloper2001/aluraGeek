@@ -96,12 +96,11 @@ const NewCategory = () => {
   function closeCategoryDetails(){
     setShowCategoryDetails(false)
   }
-
   const [idCategoryDetails, setIdCategoryDetails] = useState(null)
-  // console.log(idCategoryDetails)
   // id de la ventana del click del boton edit
+
   function handleCategoryDetails(id){
-    const idCategory = formData.formData.find(item => item.id)
+    const idCategory = formData.formData.find(item => item.id === id)
     if(idCategory){
       setSelectedIdDetails(id)
       openCategoryDetails()
@@ -110,6 +109,35 @@ const NewCategory = () => {
       console.log("no se encontraron valores")
     }
   }
+
+  const [registerUpdateData, setRegisterUpdateData] = useState({
+    title: "",
+    video: "",
+    image: "",
+    category: "",
+    comments: "",
+
+  })
+
+  function handlerUpdateData({target}){
+    // registerUpdateData
+    const { name , value} = target;
+    const updateData = formData.formData.map(item => {
+      if(item.id === selectedIdDetails){
+        return {
+          ...item,
+          [name]:value
+        }
+      }
+      return item
+    })
+    saveFormData({formData: updateData})
+    setIdCategoryDetails({...idCategoryDetails, [name]:value})
+  }
+  // function onSubmitData(e){
+  //   e.preventDefault()
+  // }
+
   return (
     <ContenedorFormulario>
       <Title>New Category</Title>
@@ -191,7 +219,10 @@ const NewCategory = () => {
                   <TableTD
                     maxHeight="100px"
                     overflowY="scroll"
-                    overflowX="hidden">{item.comments}</TableTD>
+                    overflowX="hidden">
+                      {item.comments}
+                  </TableTD>
+
                   <TableTD >
                     <Botones
                       hoverstyles={hoverStyles.amarillo}
@@ -270,7 +301,7 @@ const NewCategory = () => {
                       </TableTD>
                     </>
                   ): null
-                ):(selectedIdDetails === item.id  &&  openEditEvent === item.id)  &&
+                ):(selectedIdDetails === item.id && openEditEvent === item.id)  &&
                   showCategoryDetails
                   ?(
                     <TableTR>
@@ -278,49 +309,62 @@ const NewCategory = () => {
                         update data
                       </TableTH>
                       <TableTD>
+                      <Form>
                         <ContainerInputs>
+
+                          <Input
+                            type="text" 
+                            name="title"
+                            placeholder="title" 
+                            defaultValue={idCategoryDetails.title}
+                            onChange={handlerUpdateData}/>
+                          
+
                           <Input 
-                            placeholder="title"
-                            value={idCategoryDetails.title}
-                            onChange={setIdCategoryDetails}>
-                          </Input>
+                            type="text"
+                            name="video"
+                            placeholder="Link video" 
+                            defaultValue={idCategoryDetails.video}
+                            onChange={handlerUpdateData}/>
+                          
+
                           <Input 
-                            placeholder="video"
-                            value={idCategoryDetails.video}
-                            onChange={setIdCategoryDetails}>
-                          </Input>
-                          <Input 
-                            placeholder="image"
-                            value={idCategoryDetails.image}
-                            onChange={setIdCategoryDetails}>
-                              
-                          </Input>
-                          <Input 
-                            placeholder="comments"
-                            value={idCategoryDetails.category}
-                            onChange={setIdCategoryDetails}>
-                          </Input>
-                          <Input 
-                            placeholder=""
-                            value={idCategoryDetails.comments}
-                            onChange={setIdCategoryDetails}>
-                          </Input>
-                          <Botones
-                            hoverstyles={hoverStyles.enter}
-                            width="100%"
-                            color="rgb(0, 200, 111)"
-                            border="rgb(0, 200, 111)">
-                              Enter
-                          </Botones>
-                          <Botones
-                            hoverstyles={hoverStyles.cancel}
-                            onClick={closeCategoryDetails} 
-                            width="100%"
-                            color="rgb(229, 57, 53)"
-                            border="rgb(229, 57, 53)">
-                              Cancel
-                          </Botones>
-                        </ContainerInputs>
+                              type="text"
+                              name="image"
+                              placeholder="Link image" 
+                              defaultValue={idCategoryDetails.image}
+                              onChange={handlerUpdateData}/>
+                          
+
+                          <InputTextarea
+                            type="text"
+                            name="comments"
+                            placeholder="add a comments" 
+                            defaultValue={idCategoryDetails.comments}
+                            onChange={handlerUpdateData}/>
+                          
+                          <ContenedorBotones>
+                              <Botones
+                                hoverstyles={hoverStyles.enter}
+                                border="rgb(0, 200, 111)" 
+                                color="rgb(0, 200, 111)"
+                                text="save" 
+                                type="submit">
+                                  enter
+                              </Botones>
+                              <Botones
+                                hoverstyles={hoverStyles.cancel}
+                                border="rgb(229, 57, 53)" 
+                                color="rgb(229, 57, 53)"
+                                text="clear" 
+                                type="reset">
+                                  Cancel
+                              </Botones>
+                            </ContenedorBotones>
+
+                          </ContainerInputs>
+
+                        </Form>
                       </TableTD>
                     </TableTR>
                   ):null
