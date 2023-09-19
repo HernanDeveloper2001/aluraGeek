@@ -7,7 +7,7 @@ import { nanoid } from "nanoid";
 
 
 const NuevoVideo = () => {
-  const { register, handleSubmit, formState:{errors, isValid}, control, reset} = useForm()
+  let { register, handleSubmit, formState:{errors, isValid}, control, reset} = useForm()
   const {categoryList} = useEquipmentCategory()
   const { formData, saveFormData } = useFormData() 
   const hoverStyles = {

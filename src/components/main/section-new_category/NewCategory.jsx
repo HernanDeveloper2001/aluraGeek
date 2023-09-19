@@ -110,15 +110,6 @@ const NewCategory = () => {
     }
   }
 
-  const [registerUpdateData, setRegisterUpdateData] = useState({
-    title: "",
-    video: "",
-    image: "",
-    category: "",
-    comments: "",
-
-  })
-
   function handlerUpdateData({target}){
     // registerUpdateData
     const { name , value} = target;
@@ -134,9 +125,7 @@ const NewCategory = () => {
     saveFormData({formData: updateData})
     setIdCategoryDetails({...idCategoryDetails, [name]:value})
   }
-  // function onSubmitData(e){
-  //   e.preventDefault()
-  // }
+
 
   return (
     <ContenedorFormulario>
@@ -198,13 +187,16 @@ const NewCategory = () => {
         </ContainerInputs>
       </Form>
 
-      <Table width="70%">
+      <Table width="100%">
         <thead>
           <TableTR>
-            <TableTH width="20%">Category</TableTH>
-            <TableTH width="60%">Comments</TableTH>
-            <TableTH width="10%">Edit</TableTH>
-            <TableTH width="10%">Remove</TableTH>
+            <TableTH widthMax="10%">Category</TableTH>
+            <TableTH widthMax="10%">Title</TableTH>
+            <TableTH widthMax="10%">Video</TableTH>
+            <TableTH widthMax="10%">image</TableTH>
+            <TableTH widthMax="40%">Comments</TableTH>
+            <TableTH widthMax="10%">Edit</TableTH>
+            <TableTH widthMax="10%">Remove</TableTH>
           </TableTR>
         </thead>
           {formData.formData.map((item,i) => {
@@ -212,18 +204,44 @@ const NewCategory = () => {
               <tbody key={i}>
                 <TableTR key={`table-of-content-${i}`}>
 
-                  <TableTD>
+                  <TableTD widthMax="10%">
                     {item.category}
                   </TableTD>
 
                   <TableTD
+                    width="10%"
+                    maxHeight="100px"
+                    overflowY="scroll"
+                    overflowX="hidden">
+                      {item.title}
+                  </TableTD>
+
+                  <TableTD
+                    widthMax="10%"
+                    maxHeight="100px"
+                    overflowY="scroll"
+                    overflowX="hidden">
+                      {item.video}
+                  </TableTD>
+
+                  <TableTD
+                    widthMax="10%"
+                    maxHeight="100px"
+                    overflowY="scroll"
+                    overflowX="hidden">
+                      {item.image}
+                  </TableTD>
+
+                  <TableTD
+                    widthMax="40%"
+                    overFlowText="ellipsis"
                     maxHeight="100px"
                     overflowY="scroll"
                     overflowX="hidden">
                       {item.comments}
                   </TableTD>
 
-                  <TableTD >
+                  <TableTD widthMax="10%">
                     <Botones
                       hoverstyles={hoverStyles.amarillo}
                       onClick={() => {
@@ -242,7 +260,7 @@ const NewCategory = () => {
                     </Botones>
                   </TableTD>
 
-                  <TableTD >
+                  <TableTD widthMax="10%">
                     <Botones
                       hoverstyles={hoverStyles.rojo}
                       onClick={() => {
@@ -267,10 +285,10 @@ const NewCategory = () => {
                   showCodeWindow 
                   ?(
                     <>
-                      <TableTH>
+                      <TableTH colSpan={2}>
                         Ingresa el codigo de seguridad
                       </TableTH>
-                      <TableTD>
+                      <TableTD colSpan={3}>
                         <p>Tienes {intentos} intentos</p>
                         <Input
                           name="codeSecurity" 
@@ -305,13 +323,11 @@ const NewCategory = () => {
                   showCategoryDetails
                   ?(
                     <TableTR>
-                      <TableTH >
+                      <TableTH colSpan={2}>
                         update data
                       </TableTH>
-                      <TableTD>
-                      <Form>
+                      <TableTD colSpan={5}>
                         <ContainerInputs>
-
                           <Input
                             type="text" 
                             name="title"
@@ -319,7 +335,6 @@ const NewCategory = () => {
                             defaultValue={idCategoryDetails.title}
                             onChange={handlerUpdateData}/>
                           
-
                           <Input 
                             type="text"
                             name="video"
@@ -345,14 +360,15 @@ const NewCategory = () => {
                           
                           <ContenedorBotones>
                               <Botones
+                                type="submit"
                                 hoverstyles={hoverStyles.enter}
                                 border="rgb(0, 200, 111)" 
                                 color="rgb(0, 200, 111)"
-                                text="save" 
-                                type="submit">
+                                text="save">
                                   enter
                               </Botones>
                               <Botones
+                                onClick={closeCategoryDetails}
                                 hoverstyles={hoverStyles.cancel}
                                 border="rgb(229, 57, 53)" 
                                 color="rgb(229, 57, 53)"
@@ -360,11 +376,9 @@ const NewCategory = () => {
                                 type="reset">
                                   Cancel
                               </Botones>
-                            </ContenedorBotones>
+                          </ContenedorBotones>
 
-                          </ContainerInputs>
-
-                        </Form>
+                        </ContainerInputs>
                       </TableTD>
                     </TableTR>
                   ):null

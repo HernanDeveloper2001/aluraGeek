@@ -160,12 +160,12 @@ export const TableTR = styled.tr`
 `
 export const TableTD = styled.td`
   border: 1px solid rgba(255,255,225,30%);
-  width: ${props => props.width || null};
+  max-width: ${props => props.widthMax || null};
   text-align: ${props => props.textAlign || null};
   max-height: ${props => props.maxHeight || null};
   text-align: center;
-  overflow-y: ${props => props.overflowY || null};
-  overflow-x: ${props => props.overflowX || null};
+  overflow-y: ${props => props.overflowY || "hidden"};
+  overflow-x: ${props => props.overflowX || "scroll"};
   font-weight: 300;
   &::-webkit-scrollbar{
     width: 15px;
