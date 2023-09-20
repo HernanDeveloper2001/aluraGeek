@@ -15,23 +15,36 @@ const MainCategory = styled.main`
 `
 const SectionCategory = styled.section`
   width: 95%;
-  border-bottom: 1px solid rgba(255,255,255, 30%);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  border: 1px solid rgba(255,255,255, 30%);
+  border-radius: 5px;
+  margin-bottom: 20px;
 `
 const SectionCategorySubTitle = styled.h2`
   font-size: 4vw;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
+  padding-left: 20px;
   text-transform: uppercase;
+  z-index: 99;
 ` 
-const CategoriesSection = styled.section`
-  border: 1px solid rgba(255,255,255, 30%);
-  border-radius: 5px;
-  margin-bottom: 40px;
-  width: 100%;
+const SectionCard = styled.div`
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  &::-webkit-scrollbar{
+    width: 50px;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb{
+    background: rgba(255,255,255,50%);
+    border-radius:50px;
+  }
+  &::-webkit-scrollbar-thumb:hover{
+    background: rgba(255,255,255,20%);
+    border-radius:50px;
+  }
+
+  
 `
 const CategoriesVideo = styled.article`
   width: 100%;
@@ -49,6 +62,13 @@ const Categories = () => {
   const {categoryList} = useEquipmentCategory()
   const { formData } = useFormData() 
 
+  function hexToRgba(hex, alpha) {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
   const [containerColor, setContainerColor] = useState(() => {
     const storedColors = JSON.parse(localStorage.getItem("containerColor")) || [];
     if(storedColors.length !== categoryList.length){
@@ -56,10 +76,12 @@ const Categories = () => {
     }
     return storedColors
   })
+   
   useEffect(() => {
     // Cuando los colores cambian, guárdalos en el localStorage
     localStorage.setItem("containerColor", JSON.stringify(containerColor));
   }, [containerColor]);
+
   function handleColor(event, index) {
     const color = event.target.value;
     const updateColors = [...containerColor];
@@ -67,35 +89,34 @@ const Categories = () => {
     setContainerColor(updateColors);
   }
 
-
   return (
     <MainCategory>
       <Title>Categories</Title>
       {categoryList.map((item,i) => {
         const category = item.value;
+        const rgbaColor = {
+          backgroundColor: hexToRgba(containerColor[i]),
+          letterColor: hexToRgba(containerColor[i], 0.9),
+          cardColor: hexToRgba(containerColor[i])
+        }
         const categoryForm = formData.formData.filter(item => item.category === category)
         return(
-          <SectionCategory key={i} >
-            <CategoriesSection 
-              style={{background:containerColor[i]}}
-              >
-              <>
-                <InputColor 
-                  type="color" 
-                  onChange={(event) => handleColor(event,i)}
-                  value={containerColor[i]} />
-                <SectionCategorySubTitle>{category}</SectionCategorySubTitle>
-              </>
-              <div style={{display:"flex"}}>
+          <SectionCategory key={i} style={{backgroundColor:rgbaColor.backgroundColor}}>
+              <InputColor
+                style={{alignSelf:"end"}} 
+                type="color" 
+                onChange={(event) => handleColor(event,i)}
+                value={containerColor[i]} />
+              <SectionCategorySubTitle style={{color:rgbaColor.letterColor}}>{category}</SectionCategorySubTitle>
+              <SectionCard>
               {categoryForm.map((item,j ) => (
                 <CategoryContent
                   key={j}
                   formDataNewVideo={item}
-                  containerColor={containerColor}
+                  rgbaColor={rgbaColor}
                 /> 
               ))}
-              </div>
-            </CategoriesSection>
+              </SectionCard>
           </SectionCategory>
           )})
         }

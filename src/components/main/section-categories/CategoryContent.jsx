@@ -5,25 +5,12 @@ import { useFormData } from "../../formDataContext";
 import { Botones, Input } from "../../../styleComponents";
 
 const ContentListing = styled.article`
-  overflow-x: scroll;
-  overflow-y: hidden;
   padding-bottom: 20px;
-  &::-webkit-scrollbar{
-    width: 15px;
-  }
-  &::-webkit-scrollbar-thumb{
-    background-color: rgba(255,255,255, 30%);
-    border-radius: 50px;
-  }
-  &::-webkit-scrollbar-thumb:hover{
-    background-color: rgba(255,255,255, 20%);
-    cursor: pointer;
-  }
 `
 const CategoryDisplay = styled.article`
   display: flex;
-  width: 400px;
   height: 400px;
+  width: 400px;
   flex-direction: column;
   margin: 0 10px;
   border: 1px solid rgba(255,255,255, 30%);
@@ -34,6 +21,8 @@ const CategoryDisplay = styled.article`
 const CategoryContainerCode = styled.div`
   margin: 0 10px;
   border-radius: 5px;
+  width: 400px;
+  border: 1px solid rgba(255,255,255, 30%);
 `
 const TitleCategoryDisplay = styled.h3`
   color: #00C86F;
@@ -57,12 +46,15 @@ const CommentsCategoryDisplay = styled.p`
   height: 100%;
   font-family: 'Roboto Slab', serif;
   overflow-y: scroll;
+  overflow-x: hidden;
   &::-webkit-scrollbar{
-    width: 15px;
+    width: 5px;
     background-color: rgba(255,255,255, 30%);
+    border-radius: 5px;
   }
   &::-webkit-scrollbar-thumb{
-    border-radius: 50px;
+    width: 5px;
+    height: 50px;
   }
   &::-webkit-scrollbar-thumb:hover{
     background-color: rgba(255,255,255, 20%);
@@ -87,7 +79,7 @@ const Text = styled.p`
   left: 0;
   z-index: 99;
 `
-const CategoryContent = ({formDataNewVideo,containerColor}) => {
+const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   const [mostrarContenido, setMostrarContenido] = useState(true)
   const {formData, saveFormData} = useFormData()
   const [tableData, setTableData] = useState(formData.formData);
@@ -103,16 +95,15 @@ const CategoryContent = ({formDataNewVideo,containerColor}) => {
   const [codeWindow, setCodeWindow] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
+  const {letterColor, cardColor } = rgbaColor;
 
   function handleVideoOpen(id){
     setSelectedItemId(id)
     setShowVideo(true)
-    console.log(id)
   }
   function handleVideoClose(){
     setShowVideo(false)
   }
-
   function openCodeWindow() {
     setCodeWindow(true);
   }
@@ -163,7 +154,7 @@ const CategoryContent = ({formDataNewVideo,containerColor}) => {
   return (
     <ContentListing>
       <CategoryDisplay
-        // style={{background:containerColor}}
+        style={{backgroundColor:cardColor, border:cardColor}}
         key={`Category-display-${id}`}
         onMouseOver={handleMouseOver}
         onMouseOut={handleMouseOut}>
@@ -171,24 +162,27 @@ const CategoryContent = ({formDataNewVideo,containerColor}) => {
         ? <>
             <IconContainer>
               <AiOutlineCloseCircle 
-                style={{width:"40px", height:"40px", color:"red"}}
-                onClick={()=>handleRemove(id)}
+                style={{width:"40px", height:"40px", color:letterColor}}
+                onClick={()=>{
+                  handleRemove(id)
+                } }
                 />
             </IconContainer>
-            <TitleCategoryDisplay
+            <TitleCategoryDisplay style={{color:letterColor}}
               >{title}</TitleCategoryDisplay>
             <ImageCategoryDisplay src={image} alt="imagen"/>
-            <Text
+            <Text style={{color: letterColor}}
               >{`Code: ${securityCode}`}</Text>
           </> 
         : <>
             <IconContainer>
               <AiOutlineCloseCircle
-                style={{width:"40px", height:"40px", color:"red"}}
+                style={{width:"40px", height:"40px", color:letterColor}}
                 onClick={()=>handleRemove(id)}
                 />
             </IconContainer>
-            <CommentsCategoryDisplay>
+            <CommentsCategoryDisplay
+              style={{color: letterColor}}>
               Comments:<br></br>
               {comments}
             </CommentsCategoryDisplay>
@@ -212,34 +206,34 @@ const CategoryContent = ({formDataNewVideo,containerColor}) => {
           </>
         }
       </CategoryDisplay>
-        {selectedItemId === id && codeWindow && (
-          <CategoryContainerCode>
-            <p 
-              style={{
-                fontFamily:"Roboto Slab",}}>Ingresa código de seguridad</p>
-            <p 
-              style={{
-                fontFamily:"Roboto Slab",}}>Tienes {intentos} intentos</p>
-            <Input
-              width="50%"
-              name="codeSecurity" 
-              value={codeSecurity} 
-              placeholder="Enter code security"
-              onChange={handlerCodeSecurity} />
-            <Botones
-              hoverstyles={hoverStyles.verde}
-              color="rgb(0, 200, 111)"
-              border="rgb(0, 200, 111)"
-              padding="5px"
-              onClick={confirmRemove} >Enter</Botones>
-            <Botones
-              hoverstyles={hoverStyles.rojo}
-              padding="5px"
-              color="rgb(229, 57, 53)"
-              border="rgb(229, 57, 53)"
-              onClick={closeCodeWindow} >Cancel</Botones>
-          </CategoryContainerCode>
-        )}
+      {selectedItemId === id && codeWindow && (
+        <CategoryContainerCode>
+          <p 
+            style={{
+              fontFamily:"Roboto Slab"}}>Ingresa código de seguridad</p>
+          <p 
+            style={{
+              fontFamily:"Roboto Slab"}}>Tienes {intentos} intentos</p>
+          <Input
+            width="50%"
+            name="codeSecurity" 
+            value={codeSecurity} 
+            placeholder="Enter code security"
+            onChange={handlerCodeSecurity} />
+          <Botones
+            hoverstyles={hoverStyles.verde}
+            color="rgb(0, 200, 111)"
+            border="rgb(0, 200, 111)"
+            padding="5px"
+            onClick={confirmRemove} >Enter</Botones>
+          <Botones
+            hoverstyles={hoverStyles.rojo}
+            padding="5px"
+            color="rgb(229, 57, 53)"
+            border="rgb(229, 57, 53)"
+            onClick={closeCodeWindow} >Cancel</Botones>
+        </CategoryContainerCode>
+      )}
     </ContentListing>
   )
 }
