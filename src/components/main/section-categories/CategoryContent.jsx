@@ -82,7 +82,7 @@ const Text = styled.p`
 const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   const [mostrarContenido, setMostrarContenido] = useState(true)
   const {formData, saveFormData} = useFormData()
-  const [tableData, setTableData] = useState(formData.formData);
+  const [tableData, setTableData] = useState(formData);
   const hoverStyles = {
     verde: {
       backgroundColor: "rgba(0, 200, 111, 0.698)",
@@ -96,6 +96,8 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
   const {letterColor, cardColor } = rgbaColor;
+
+  console.log(formData)
 
   function handleVideoOpen(id){
     setSelectedItemId(id)
@@ -123,7 +125,7 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   const [codeSecurity, setCodeSecurity] = useState("")
   function handlerCodeSecurity(e){
     const codeSecurityValue = e.target.value;
-    const codeFormData = formData.formData.map((item,i) => item.securityCode[i] === codeSecurityValue)
+    const codeFormData = formData.map((item,i) => item.securityCode[i] === codeSecurityValue)
     if(!codeFormData){
       console.log("false")
     }
@@ -132,13 +134,13 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   const [intentos, setIntentos] = useState(3);
   function confirmRemove(){
     // Verificar si el código de seguridad es correcto aquí antes de eliminar
-    const codeFormData = Object.values(formData.formData).some(item => item.securityCode === codeSecurity && item.id === id)
+    const codeFormData = Object.values(formData).some(item => item.securityCode === codeSecurity && item.id === id)
     let intetoscode = 1
     if (codeFormData) {
       // Eliminar el elemento de tableData y actualizar formData
       const updatedTableData = tableData.filter((item) => item.id !== selectedItemId);
       setTableData(updatedTableData);
-      saveFormData({ formData: updatedTableData });
+      saveFormData(updatedTableData);
     }
     else if(intetoscode < intentos){
       alert("El código de seguridad no coincide.");
@@ -168,10 +170,12 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
                 } }
                 />
             </IconContainer>
-            <TitleCategoryDisplay style={{color:letterColor}}
+            <TitleCategoryDisplay 
+              style={{color:letterColor}}
               >{title}</TitleCategoryDisplay>
             <ImageCategoryDisplay src={image} alt="imagen"/>
-            <Text style={{color: letterColor}}
+            <Text 
+              style={{color: letterColor}}
               >{`Code: ${securityCode}`}</Text>
           </> 
         : <>

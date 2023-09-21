@@ -25,6 +25,7 @@ const NuevoVideo = () => {
     }
   };
   
+  console.log(categoryList)
   return(
     <ContenedorFormulario>
 
@@ -36,9 +37,9 @@ const NuevoVideo = () => {
               ...data,
               id:nanoid()
             }
-            const currentData = formData.formData || []
+            const currentData = formData || [];
             const newData = [...currentData, newFormData]
-            saveFormData({formData:newData});
+            saveFormData(newData);
             reset()
           }
         })}>

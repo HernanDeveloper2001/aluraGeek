@@ -150,23 +150,23 @@ export const InputColor = styled.input`
 export const Table = styled.table`
   border: 1px solid rgba(255,255,225,30%);
   font-family: 'Roboto Mono', monospace;
-  width:${props => props.width || "100%"};
+  width: "100%";
   font-size: 1.2vw;
-
 `
 export const TableTR = styled.tr`
   border: 1px solid rgba(255,255,225,30%);
   height: 50px;
 `
+export const DivTd = styled.div`
+  height: 100%;
+  width: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
+`
 export const TableTD = styled.td`
+  width:200px;
+  height: 200px;
   border: 1px solid rgba(255,255,225,30%);
-  max-width: ${props => props.widthMax || null};
-  text-align: ${props => props.textAlign || null};
-  max-height: ${props => props.maxHeight || null};
-  text-align: center;
-  overflow-y: ${props => props.overflowY || "hidden"};
-  overflow-x: ${props => props.overflowX || "scroll"};
-  font-weight: 300;
   &::-webkit-scrollbar{
     width: 15px;
   }
@@ -181,8 +181,7 @@ export const TableTD = styled.td`
 `
 export const TableTH = styled.th`
   border: 1px solid rgba(255,255,225,30%);
-  width: ${props => props.width || null};
   font-weight: 800;
-  color: red;
+  color: rgb(255, 0, 0);
 `
 

@@ -69,6 +69,7 @@ const Categories = () => {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
+
   const [containerColor, setContainerColor] = useState(() => {
     const storedColors = JSON.parse(localStorage.getItem("containerColor")) || [];
     if(storedColors.length !== categoryList.length){
@@ -95,19 +96,21 @@ const Categories = () => {
       {categoryList.map((item,i) => {
         const category = item.value;
         const rgbaColor = {
-          backgroundColor: hexToRgba(containerColor[i]),
+          backgroundColor: hexToRgba(containerColor[i],0.1),
           letterColor: hexToRgba(containerColor[i], 0.9),
-          cardColor: hexToRgba(containerColor[i])
+          cardColor: hexToRgba(containerColor[i],0.1)
         }
-        const categoryForm = formData.formData.filter(item => item.category === category)
+        const categoryForm = formData.filter(item => item.category === category)
         return(
-          <SectionCategory key={i} style={{backgroundColor:rgbaColor.backgroundColor}}>
+          <SectionCategory 
+            key={i} style={{background:rgbaColor.backgroundColor, border:rgbaColor.backgroundColor}}>
               <InputColor
-                style={{alignSelf:"end"}} 
+                style={{alignSelf:"end"}}
                 type="color" 
                 onChange={(event) => handleColor(event,i)}
                 value={containerColor[i]} />
-              <SectionCategorySubTitle style={{color:rgbaColor.letterColor}}>{category}</SectionCategorySubTitle>
+              <SectionCategorySubTitle 
+                style={{color:rgbaColor.letterColor}}>{category}</SectionCategorySubTitle>
               <SectionCard>
               {categoryForm.map((item,j ) => (
                 <CategoryContent

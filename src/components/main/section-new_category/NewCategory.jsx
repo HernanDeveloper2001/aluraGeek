@@ -1,4 +1,4 @@
-import { Input, ContenedorFormulario, Title, Form, ContainerInputs, InputErrors, InputColor, ContenedorBotones, Botones,Table, TableTD, TableTR, TableTH, InputTextarea } from "../../../styleComponents";
+import { Input, ContenedorFormulario, Title, Form, ContainerInputs, InputErrors, InputColor, ContenedorBotones, Botones,Table, TableTD, TableTR, TableTH, InputTextarea, DivTd } from "../../../styleComponents";
 import {  useForm } from "react-hook-form";
 import { useEquipmentCategory } from "../../TeamsContext";
 import { useFormData } from "../../formDataContext";
@@ -14,7 +14,7 @@ const NewCategory = () => {
   })
   const [color, setColor] = useState("")
   const {formData, saveFormData} = useFormData()
-  const [tableData, setTableData] = useState(formData.formData);
+  const [tableData, setTableData] = useState(formData);
   const {categoryList, saveEquipmentCategory} = useEquipmentCategory()
   const hoverStyles = {
     verde: {
@@ -52,26 +52,29 @@ const NewCategory = () => {
   }
   // valor del input que verifica si coincide con el del boton
   const [codeSecurity, setCodeSecurity] = useState("")
-
+  console.log(formData)
   function inputCodeSecurity(e){
     const codeSecurityValue = e.target.value;
-    const codeFormData = formData.formData.map((item,i) => item.securityCode[i] === codeSecurityValue)
+    const codeFormData = formData.map((item,i) => item.securityCode[i] === codeSecurityValue)
     if(!codeFormData){
       console.log("false")
+    }else{
+      console.log("ture")
     }
     setCodeSecurity(codeSecurityValue)
   }
   // boton que confirma si el id es el mismo del boton
   const [intentos, setIntentos] = useState(3);
+
   function confirmRemove(id) {
     // Verificar si el código de seguridad es correcto aquí antes de eliminar
-    const codeFormData = Object.values(formData.formData).some(item => item.securityCode === codeSecurity && item.id === id)
+    const codeFormData = Object.values(formData).some(item => item.securityCode === codeSecurity && item.id === id)
     let intetoscode = 1
     if (codeFormData) {
       // Eliminar el elemento de tableData y actualizar formData
       const updatedTableData = tableData.filter((item) => item.id !== selectedIdCode);
       setTableData(updatedTableData);
-      saveFormData({ formData: updatedTableData });
+      saveFormData(updatedTableData);
     }
     else if(intetoscode < intentos){
       alert("El código de seguridad no coincide.");
@@ -100,7 +103,7 @@ const NewCategory = () => {
   // id de la ventana del click del boton edit
 
   function handleCategoryDetails(id){
-    const idCategory = formData.formData.find(item => item.id === id)
+    const idCategory = formData.find(item => item.id === id)
     if(idCategory){
       setSelectedIdDetails(id)
       openCategoryDetails()
@@ -113,7 +116,7 @@ const NewCategory = () => {
   function handlerUpdateData({target}){
     // registerUpdateData
     const { name , value} = target;
-    const updateData = formData.formData.map(item => {
+    const updateData = formData.map(item => {
       if(item.id === selectedIdDetails){
         return {
           ...item,
@@ -122,10 +125,9 @@ const NewCategory = () => {
       }
       return item
     })
-    saveFormData({formData: updateData})
+    saveFormData(updateData)
     setIdCategoryDetails({...idCategoryDetails, [name]:value})
   }
-
 
   return (
     <ContenedorFormulario>
@@ -190,58 +192,51 @@ const NewCategory = () => {
       <Table width="100%">
         <thead>
           <TableTR>
-            <TableTH widthMax="10%">Category</TableTH>
-            <TableTH widthMax="10%">Title</TableTH>
-            <TableTH widthMax="10%">Video</TableTH>
-            <TableTH widthMax="10%">image</TableTH>
-            <TableTH widthMax="40%">Comments</TableTH>
-            <TableTH widthMax="10%">Edit</TableTH>
-            <TableTH widthMax="10%">Remove</TableTH>
+            <TableTH >Category</TableTH>
+            <TableTH >Title</TableTH>
+            <TableTH >Video</TableTH>
+            <TableTH >image</TableTH>
+            <TableTH >Comments</TableTH>
+            <TableTH >Edit</TableTH>
+            <TableTH >Remove</TableTH>
           </TableTR>
         </thead>
-          {formData.formData.map((item,i) => {
+          {formData.map((item,i) => {
             return(
               <tbody key={i}>
                 <TableTR key={`table-of-content-${i}`}>
 
-                  <TableTD widthMax="10%">
-                    {item.category}
+                  <TableTD>
+                    <DivTd>
+                      {item.category}
+                    </DivTd>
                   </TableTD>
 
-                  <TableTD
-                    width="10%"
-                    maxHeight="100px"
-                    overflowY="scroll"
-                    overflowX="hidden">
+                  <TableTD>
+                    <DivTd>
                       {item.title}
+                    </DivTd>
                   </TableTD>
 
-                  <TableTD
-                    widthMax="10%"
-                    maxHeight="100px"
-                    overflowY="scroll"
-                    overflowX="hidden">
+                  <TableTD style={{background:"green"}}>
+                    <DivTd>
                       {item.video}
+                    </DivTd>
                   </TableTD>
 
-                  <TableTD
-                    widthMax="10%"
-                    maxHeight="100px"
-                    overflowY="scroll"
-                    overflowX="hidden">
+                  <TableTD style={{background:"blue"}}>
+                    <DivTd style={{background:"red"}}>
                       {item.image}
+                    </DivTd>
                   </TableTD>
 
-                  <TableTD
-                    widthMax="40%"
-                    overFlowText="ellipsis"
-                    maxHeight="100px"
-                    overflowY="scroll"
-                    overflowX="hidden">
+                  <TableTD>
+                    <DivTd style={{background:"green"}}>
                       {item.comments}
+                    </DivTd>
                   </TableTD>
 
-                  <TableTD widthMax="10%">
+                  <TableTD >
                     <Botones
                       hoverstyles={hoverStyles.amarillo}
                       onClick={() => {
@@ -260,7 +255,7 @@ const NewCategory = () => {
                     </Botones>
                   </TableTD>
 
-                  <TableTD widthMax="10%">
+                  <TableTD >
                     <Botones
                       hoverstyles={hoverStyles.rojo}
                       onClick={() => {
