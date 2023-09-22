@@ -113,20 +113,32 @@ const NewCategory = () => {
     }
   }
 
-  function handlerUpdateData({target}){
+  function onClickSave(id) {
+    // Encuentra el índice del elemento con el ID coincidente en formData
+    const indiceItem = formData.findIndex((item) => item.id === id);
+  
+    if (indiceItem !== -1) {
+      // Actualiza el elemento en formData
+      const formDataActualizada = [...formData];
+      formDataActualizada[indiceItem] = idCategoryDetails; // Suponiendo que idCategoryDetails contiene los datos actualizados
+  
+      // Guarda formDataActualizada en la base de datos usando saveFormData
+      saveFormData(formDataActualizada);
+  
+      // Cierra la sección de edición o realiza cualquier otra acción necesaria
+      closeCategoryDetails();
+    }
+  }
+
+  function handlerUpdateData(target) {
     // registerUpdateData
-    const { name , value} = target;
-    const updateData = formData.map(item => {
-      if(item.id === selectedIdDetails){
-        return {
-          ...item,
-          [name]:value
-        }
-      }
-      return item
-    })
-    saveFormData(updateData)
-    setIdCategoryDetails({...idCategoryDetails, [name]:value})
+    const { name, value } = target;
+
+    // Actualiza los datos en idCategoryDetails
+    setIdCategoryDetails((prevDetails) => ({
+      ...prevDetails,
+      [name]: value,
+    }));
   }
 
   return (
@@ -194,8 +206,6 @@ const NewCategory = () => {
           <TableTR>
             <TableTH >Category</TableTH>
             <TableTH >Title</TableTH>
-            <TableTH >Video</TableTH>
-            <TableTH >image</TableTH>
             <TableTH >Comments</TableTH>
             <TableTH >Edit</TableTH>
             <TableTH >Remove</TableTH>
@@ -215,18 +225,6 @@ const NewCategory = () => {
                   <TableTD>
                     <DivTd>
                       {item.title}
-                    </DivTd>
-                  </TableTD>
-
-                  <TableTD style={{background:"green"}}>
-                    <DivTd>
-                      {item.video}
-                    </DivTd>
-                  </TableTD>
-
-                  <TableTD style={{background:"blue"}}>
-                    <DivTd style={{background:"red"}}>
-                      {item.image}
                     </DivTd>
                   </TableTD>
 
@@ -280,10 +278,10 @@ const NewCategory = () => {
                   showCodeWindow 
                   ?(
                     <>
-                      <TableTH colSpan={2}>
+                      <TableTH colSpan={1}>
                         Ingresa el codigo de seguridad
                       </TableTH>
-                      <TableTD colSpan={3}>
+                      <TableTD colSpan={2}>
                         <p>Tienes {intentos} intentos</p>
                         <Input
                           name="codeSecurity" 
@@ -322,58 +320,68 @@ const NewCategory = () => {
                         update data
                       </TableTH>
                       <TableTD colSpan={5}>
-                        <ContainerInputs>
-                          <Input
-                            type="text" 
-                            name="title"
-                            placeholder="title" 
-                            defaultValue={idCategoryDetails.title}
-                            onChange={handlerUpdateData}/>
-                          
-                          <Input 
-                            type="text"
-                            name="video"
-                            placeholder="Link video" 
-                            defaultValue={idCategoryDetails.video}
-                            onChange={handlerUpdateData}/>
-                          
+                        <Form>
+                          <ContainerInputs>
+                            <Input
+                              type="text" 
+                              name="title"
+                              placeholder="title" 
+                              defaultValue={idCategoryDetails.title}
+                              onChange={(e) => handlerUpdateData(e.target)}/>
 
-                          <Input 
+                            <Input
+                              type="text" 
+                              name="title"
+                              placeholder="title" 
+                              defaultValue={idCategoryDetails.category}
+                              onChange={(e) => handlerUpdateData(e.target)}/>
+                            
+                            <Input 
+                              type="text"
+                              name="video"
+                              placeholder="Link video" 
+                              defaultValue={idCategoryDetails.video}
+                              onChange={(e) => handlerUpdateData(e.target)}/>
+                            
+
+                            <Input 
                               type="text"
                               name="image"
                               placeholder="Link image" 
                               defaultValue={idCategoryDetails.image}
-                              onChange={handlerUpdateData}/>
-                          
+                              onChange={(e) => handlerUpdateData(e.target)} />
+                            
 
-                          <InputTextarea
-                            type="text"
-                            name="comments"
-                            placeholder="add a comments" 
-                            defaultValue={idCategoryDetails.comments}
-                            onChange={handlerUpdateData}/>
-                          
-                          <ContenedorBotones>
-                              <Botones
-                                type="submit"
-                                hoverstyles={hoverStyles.enter}
-                                border="rgb(0, 200, 111)" 
-                                color="rgb(0, 200, 111)"
-                                text="save">
-                                  enter
-                              </Botones>
-                              <Botones
-                                onClick={closeCategoryDetails}
-                                hoverstyles={hoverStyles.cancel}
-                                border="rgb(229, 57, 53)" 
-                                color="rgb(229, 57, 53)"
-                                text="clear" 
-                                type="reset">
-                                  Cancel
-                              </Botones>
-                          </ContenedorBotones>
+                            <InputTextarea
+                              type="text"
+                              name="comments"
+                              placeholder="add a comments" 
+                              defaultValue={idCategoryDetails.comments}
+                              onChange={(e) => handlerUpdateData(e.target)} />
+                            
+                            <ContenedorBotones>
+                                <Botones
+                                  onClick={() => onClickSave(idCategoryDetails.id)}
+                                  type="submit"
+                                  hoverstyles={hoverStyles.enter}
+                                  border="rgb(0, 200, 111)" 
+                                  color="rgb(0, 200, 111)"
+                                  text="save">
+                                    enter
+                                </Botones>
+                                <Botones
+                                  onClick={closeCategoryDetails}
+                                  hoverstyles={hoverStyles.cancel}
+                                  border="rgb(229, 57, 53)" 
+                                  color="rgb(229, 57, 53)"
+                                  text="clear" 
+                                  type="reset">
+                                    Cancel
+                                </Botones>
+                            </ContenedorBotones>
 
-                        </ContainerInputs>
+                          </ContainerInputs>
+                        </Form>
                       </TableTD>
                     </TableTR>
                   ):null

@@ -150,7 +150,7 @@ export const InputColor = styled.input`
 export const Table = styled.table`
   border: 1px solid rgba(255,255,225,30%);
   font-family: 'Roboto Mono', monospace;
-  width: "100%";
+  width: 90%;
   font-size: 1.2vw;
 `
 export const TableTR = styled.tr`
@@ -160,8 +160,14 @@ export const TableTR = styled.tr`
 export const DivTd = styled.div`
   height: 100%;
   width: auto;
-  overflow-x: hidden;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,30%);
+    border-radius: 5px;
+  }
 `
 export const TableTD = styled.td`
   width:200px;
