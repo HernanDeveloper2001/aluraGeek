@@ -42,7 +42,7 @@ const TitleCategoryDisplay = styled.h3`
   margin: 0;
   z-index: 99;
   @media(max-width:768px){
-    font-size: 1.45rem;
+    font-size: 1.5rem;
   }
 `
 const ImageCategoryDisplay = styled.img`

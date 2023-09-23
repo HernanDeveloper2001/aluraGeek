@@ -19,28 +19,41 @@ export const Title = styled.h2`
   }
 `
 export const Form = styled.form`
-    background-color: transparent;
-    width: ${props => props.width || "50%"};
-    height: auto;
-    border-radius: 5px;
-    border: 1px solid #5f5a5a;
-    box-shadow: 10px 10px 10px -10px;
-    padding: 30px 30px;
-    margin-bottom: 40px;
-    margin: ${props => props.margin || "none"};
-  `
+  background-color: transparent;
+  width: ${props => props.width || "50%"};
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid #5f5a5a;
+  box-shadow: 10px 10px 10px -10px;
+  padding: 30px 30px;
+  margin-bottom: 40px;
+  margin: ${props => props.margin || "none"};
+  @media(max-width:768px){
+    width:80%;
+  }
+`
 export const SubTitle = styled.h3`
   color: #fff;
   font-size: 2.5vw;
   text-align: center;
   font-family: 'Roboto Mono', monospace;
-
+  @media(max-width:768px){
+    font-size: 1.5rem;
+  }
 `
 export const ContainerInputs = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin: 40px;;
+  margin: 40px;
+  @media(max-width:768px){
+    width: 100%;
+    font-size: 1.5rem;
+  }
 `
 export const Input = styled.input`
   height: 50px;

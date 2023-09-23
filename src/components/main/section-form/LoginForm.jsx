@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { FormularioValidacion } from "./validacion.formulario"
-import { ContenedorFormulario,Title,Form,SubTitle,ContainerInputs,Input,InputErrors,MensajeRegistro, Botones } from "../../../styleComponents";
+import { ContenedorFormulario,Title,Form,SubTitle,ContainerInputs,Input,InputErrors,MensajeRegistro, Botones, ContenedorBotones } from "../../../styleComponents";
 
 
 const LoginForm = () => {
-
   const { register, handleSubmit, formState:{errors, isValid}, setFocus } = FormularioValidacion()
 
   const [validation, setValidation] = useState({
@@ -99,13 +98,15 @@ const LoginForm = () => {
             />
             <InputErrors>{errors.contraseña?.message}</InputErrors>
 
-            <Botones
-              border="rgb(42, 122, 228)"
-              color="rgb(42, 122, 228)"
-              onClick={onHandleValid}
-              type="submit"
-            >Registrar
-            </Botones>
+            <ContenedorBotones>
+              <Botones
+                border="rgb(42, 122, 228)"
+                color="rgb(42, 122, 228)"
+                onClick={onHandleValid}
+                type="submit"
+              >Registrar
+              </Botones>
+            </ContenedorBotones>
             
             {isValid === false 
             ? <MensajeRegistro style={{color:validation.invalid.color}}>{validation.invalid.value}</MensajeRegistro>
