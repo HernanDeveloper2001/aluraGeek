@@ -13,12 +13,6 @@ const MainCategory = styled.main`
   align-items: center;
 ;
 `
-const SectionCategory = styled.section`
-  width: 95%;
-  border: 1px solid rgba(255,255,255, 30%);
-  border-radius: 5px;
-  margin-bottom: 20px;
-`
 const SectionCategorySubTitle = styled.h2`
   font-size: 4vw;
   font-family: 'Roboto Mono', monospace;
@@ -26,7 +20,17 @@ const SectionCategorySubTitle = styled.h2`
   padding-left: 20px;
   text-transform: uppercase;
   z-index: 99;
+  @media(max-width: 768px){
+    font-size: 30px;
+  }
 ` 
+const SectionCategory = styled.section`
+  width: 95%;
+  border: 1px solid rgba(255,255,255, 30%);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: blue;
+`
 const SectionCard = styled.div`
   display: flex;
   overflow-y: hidden;

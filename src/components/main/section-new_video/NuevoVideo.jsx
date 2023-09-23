@@ -31,16 +31,17 @@ const NuevoVideo = () => {
 
       <Title>New video</Title>
 
-        <Form onSubmit={handleSubmit((data) => {
+        <Form encType="multipart/form-data" onSubmit={handleSubmit((data) => {
           if(isValid){
             const newFormData = {
               ...data,
               id:nanoid()
             }
-            const currentData = formData || [];
-            const newData = [...currentData, newFormData]
-            saveFormData(newData);
-            reset()
+            console.log(newFormData)
+            // const currentData = formData || [];
+            // const newData = [...currentData, newFormData]
+            // saveFormData(newData);
+            // reset()
           }
         })}>
           <ContainerInputs>
@@ -70,36 +71,31 @@ const NuevoVideo = () => {
             {errors.video && <InputErrors>{errors.video?.message}</InputErrors>}
 
             <Input 
-                type="text"
-                {...register("image",{
-                  required: "Este campo es requerido",
-                  minLength: {
-                    value: 1,
-                    message: "Minimo un caracter en el campo de image",
-                  }
-                })}
-                placeholder="Link image" />
+                type="file"
+                name="image"
+                {...register("image")}
+                accept="image/*" />
             {errors.image && <InputErrors>{errors.image?.message}</InputErrors>}
 
             <Controller
-                control={control}
-                name="category"
-                rules={{
-                  required: "Este campo es requerido"
-                }}
-                render={({ field: {onChange, onblur, value, name ,ref }}) => {
-                  return <InputSelect
-                    name={name}
-                    ref={ref}
-                    onBlur={onblur}
-                    defaultValue={value }
-                    onChange={({value}) =>{
-                      onChange(value)
-                    }}
-                    placeholder="Choose an option"
-                    options={categoryList}
-                    getOptionLabel={e => e.value}           
-                  />
+              control={control}
+              name="category"
+              rules={{
+                required: "Este campo es requerido"
+              }}
+              render={({ field: {onChange, onblur, value, name ,ref }}) => {
+                return <InputSelect
+                  name={name}
+                  ref={ref}
+                  onBlur={onblur}
+                  defaultValue={value }
+                  onChange={({value}) =>{
+                    onChange(value)
+                  }}
+                  placeholder="Choose an option"
+                  options={categoryList}
+                  getOptionLabel={e => e.value}           
+                />
             }} />
             {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
 

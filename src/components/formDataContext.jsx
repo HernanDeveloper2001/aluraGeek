@@ -14,7 +14,7 @@ export const FormDataProvider = ({ children }) => {
     {
     id:nanoid(),
     title:"Don quijote",
-    video: "No hayddasdasdasd",
+    video: "No hay",
     image: `https://th.bing.com/th/id/R.ac0f63765c6f66dbd8a62371ec780ed8?rik=tRbRDKxKiG2%2bsQ&riu=http%3a%2f%2fi.huffpost.com%2fgen%2f1969482%2foriginal.jpg&ehk=VIhPLjUHV0UfXbXjO8KsU1OQb5I2iZzdEFBBIDRH5OM%3d&risl=1&pid=ImgRaw&r=0`,
     category:"libros",
     comments: `es una novela escrita por el español Miguel de Cervantes Saavedra. Publicada su primera parte con el título de El ingenioso hidalgo don Quijote de la Mancha a comienzos de 1605, es la obra más destacada de la literatura española y una de las principales de la literatura universal. ​En 1615 apareció su continuación con el título de Segunda parte del ingenioso caballero don Quijote de la Mancha. El Quijote de 1605 se publicó dividido en cuatro partes; pero al aparecer el Quijote de 1615 en calidad de Segunda parte de la obra, quedó revocada de hecho la partición en cuatro secciones del volumen publicado diez años antes por Cervantes.
@@ -48,15 +48,15 @@ export const FormDataProvider = ({ children }) => {
       comments: "Un grupo de mercenarios es contratado para infiltrarse en un país sudamericano y derrocar a su despiadado y corrupto dictador. Una vez allí, se verán atrapados en una telaraña de engaño y traición. Una vez fracasada la misión, tendrán que enfrentarse a un reto aún más difícil; salvar la unidad del grupo y la amistad que los ha unido durante largos años.",
       securityCode:"12",
     },
-  {
-    id:nanoid(),
-    title:"Patricio",
-    video: "No hay",
-    image: "https://th.bing.com/th/id/R.58dc7f0c0fda5f0a5f9ef71c02cc3afc?rik=CNxipFyYsUoaCQ&pid=ImgRaw&r=0",
-    category:"gifs",
-    comments: "popular serie de bob esponja",
-    securityCode:"esponja",
-  }
+    {
+      id:nanoid(),
+      title:"Patricio",
+      video: "No hay",
+      image: "https://th.bing.com/th/id/R.58dc7f0c0fda5f0a5f9ef71c02cc3afc?rik=CNxipFyYsUoaCQ&pid=ImgRaw&r=0",
+      category:"gifs",
+      comments: "popular serie de bob esponja",
+      securityCode:"esponja",
+    }
 ]
 
   const [formData, setFormData] = useState(() => {

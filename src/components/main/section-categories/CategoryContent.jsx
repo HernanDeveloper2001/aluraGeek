@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import {AiOutlineCloseCircle} from "react-icons/ai";
 import { useFormData } from "../../formDataContext";
-import { Botones, Input } from "../../../styleComponents";
+import { Botones, Input, ContenedorBotones } from "../../../styleComponents";
 
 const ContentListing = styled.article`
   padding-bottom: 20px;
@@ -17,21 +17,33 @@ const CategoryDisplay = styled.article`
   border-radius: 5px;
   cursor: pointer;
   position: relative;
+  @media(max-width: 768px){
+    font-size: 16px;
+    width: 200px;
+    height: 200px;
+  }
 `
 const CategoryContainerCode = styled.div`
+  text-align: center;
   margin: 0 10px;
-  border-radius: 5px;
+  border-radius: 0 0 5px 5px;
   width: 400px;
   border: 1px solid rgba(255,255,255, 30%);
+  @media(max-width: 768px){
+    font-size: 16px;
+    width: 200px;
+  }
 `
 const TitleCategoryDisplay = styled.h3`
-  color: #00C86F;
   font-size:2.5vw;
   text-transform: capitalize;
   text-align: center;
   font-family: 'Roboto Slab', serif;
   margin: 0;
   z-index: 99;
+  @media(max-width:768px){
+    font-size: 1.45rem;
+  }
 `
 const ImageCategoryDisplay = styled.img`
   margin: auto;
@@ -60,6 +72,9 @@ const CommentsCategoryDisplay = styled.p`
     background-color: rgba(255,255,255, 20%);
     cursor: pointer;
   }
+  @media(max-width: 768px) {
+    font-size: 16px;
+  }
 `
 const IconContainer = styled.div`
   height: 40px;
@@ -67,6 +82,7 @@ const IconContainer = styled.div`
   width: 40px;
   display: flex;
   align-self: end;
+  z-index: 999;
 `
 const Text = styled.p`
   font-size:14px;
@@ -96,8 +112,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [showVideo, setShowVideo] = useState(false);
   const {letterColor, cardColor } = rgbaColor;
-
-  console.log(formData)
 
   function handleVideoOpen(id){
     setSelectedItemId(id)
@@ -190,23 +204,25 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
               Comments:<br></br>
               {comments}
             </CommentsCategoryDisplay>
-            {
-              showVideo 
-              ? <Botones
-                  hoverstyles={hoverStyles.rojo}
-                  width="40%"
-                  padding="5px"
-                  color="rgb(229, 57, 53)"
-                  border="rgb(229, 57, 53)"
-                  onClick={() => handleVideoClose(id)}>ocultar</Botones>
-              : <Botones
-                  hoverstyles={hoverStyles.verde}
-                  padding="5px"
-                  width="40%"
-                  color="rgb(0, 200, 111)"
-                  border="rgb(0, 200, 111)"
-                  onClick={() => handleVideoOpen(id)}>Ver video</Botones>
-            }
+            <ContenedorBotones>
+              {
+                showVideo 
+                ?<Botones
+                    hoverstyles={hoverStyles.rojo}
+                    width="40%"
+                    padding="5px"
+                    color="rgb(229, 57, 53)"
+                    border="rgb(229, 57, 53)"
+                    onClick={() => handleVideoClose(id)}>ocultar</Botones>
+                :<Botones
+                    hoverstyles={hoverStyles.verde}
+                    padding="5px"
+                    width="40%"
+                    color="rgb(0, 200, 111)"
+                    border="rgb(0, 200, 111)"
+                    onClick={() => handleVideoOpen(id)}>Ver video</Botones>
+              }
+            </ContenedorBotones>
           </>
         }
       </CategoryDisplay>
@@ -224,18 +240,20 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
             value={codeSecurity} 
             placeholder="Enter code security"
             onChange={handlerCodeSecurity} />
-          <Botones
-            hoverstyles={hoverStyles.verde}
-            color="rgb(0, 200, 111)"
-            border="rgb(0, 200, 111)"
-            padding="5px"
-            onClick={confirmRemove} >Enter</Botones>
-          <Botones
-            hoverstyles={hoverStyles.rojo}
-            padding="5px"
-            color="rgb(229, 57, 53)"
-            border="rgb(229, 57, 53)"
-            onClick={closeCodeWindow} >Cancel</Botones>
+          <ContenedorBotones>
+            <Botones
+              hoverstyles={hoverStyles.verde}
+              color="rgb(0, 200, 111)"
+              border="rgb(0, 200, 111)"
+              padding="5px"
+              onClick={confirmRemove} >Enter</Botones>
+            <Botones
+              hoverstyles={hoverStyles.rojo}
+              padding="5px"
+              color="rgb(229, 57, 53)"
+              border="rgb(229, 57, 53)"
+              onClick={closeCodeWindow}>Cancel</Botones>
+          </ContenedorBotones>
         </CategoryContainerCode>
       )}
     </ContentListing>

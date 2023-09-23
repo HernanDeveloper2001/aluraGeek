@@ -9,11 +9,14 @@ export const ContenedorFormulario = styled.section`
   align-items: center;
 `
 export const Title = styled.h2`
-  font-size: 6vw;
+  font-size: 7vw;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
   padding: 10px;
   text-shadow: 5px 5px 5px rgba(255,255,255, 30%);
+  @media(max-width: 768px){
+    font-size: 3rem;
+  }
 `
 export const Form = styled.form`
     background-color: transparent;
@@ -41,7 +44,7 @@ export const ContainerInputs = styled.div`
 `
 export const Input = styled.input`
   height: 50px;
-  text-indent: 20px;
+  text-indent: 10px;
   border-radius: 5px;
   border: none;
   font-family: 'Roboto Mono', monospace;
@@ -51,7 +54,10 @@ export const Input = styled.input`
   box-sizing: border-box;
   outline: none;
   border-bottom: 1px solid #ccc;
-  width: ${props => props.width || "100%"}
+  width: 100%;
+  @media (max-width: 768px){
+    font-size:15px;
+  }
 `
 export const InputTextarea = styled.textarea`
   outline: none;
@@ -117,6 +123,13 @@ export const Botones = styled.button`
   &:hover{
     ${props => props.hoverstyles && props.hoverstyles};
   }
+  @media(max-width: 768px){
+    font-size: 20px;
+    width: 50%;
+    font-size: 16px;
+    padding: 5px;
+
+  }
 `
 export const BotonesLinks = styled(Link)`
   width: ${props => props.width || null};
@@ -134,12 +147,24 @@ export const BotonesLinks = styled(Link)`
   &:hover {
     ${props => props.hoverstyles && props.hoverstyles }; 
   }
+
+  @media(max-width: 768px){
+    width: 50%;
+    font-size: 16px;
+    padding: 5px;
+  }
 `
 export const ContenedorBotones = styled.div`
   display:flex;
   gap: 1rem;
   margin: ${props => props.margin || "none"};
   justify-content: ${props => props.justifyContent || "none"};
+  @media(max-width: 768px){
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin: 7px 0;
+  }
 `
 export const InputColor = styled.input`
   float: right;
