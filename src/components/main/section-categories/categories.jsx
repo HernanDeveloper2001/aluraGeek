@@ -11,7 +11,7 @@ const MainCategory = styled.main`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-;
+  padding: 50px 0;
 `
 const SectionCategorySubTitle = styled.h2`
   font-size: 4vw;
@@ -72,7 +72,6 @@ const Categories = () => {
     const b = parseInt(hex.slice(5, 7), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
-
 
   const [containerColor, setContainerColor] = useState(() => {
     const storedColors = JSON.parse(localStorage.getItem("containerColor")) || [];

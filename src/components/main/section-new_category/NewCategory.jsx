@@ -276,7 +276,7 @@ const NewCategory = () => {
                 {selectedIdCode === item.id && openRemoveEvent === item.id 
                 ?(
                   showCodeWindow 
-                  ?(
+                  &&(
                     <>
                       <TableTH colSpan={1}>
                         Ingresa el codigo de seguridad
@@ -311,10 +311,10 @@ const NewCategory = () => {
                         </Botones>
                       </TableTD>
                     </>
-                  ): null
+                  )
                 ):(selectedIdDetails === item.id && openEditEvent === item.id)  &&
                   showCategoryDetails
-                  ?(
+                  &&(
                     <TableTR>
                       <TableTH colSpan={2}>
                         update data
@@ -384,7 +384,7 @@ const NewCategory = () => {
                         </Form>
                       </TableTD>
                     </TableTR>
-                  ):null
+                  )
                 }
               </tbody>
           )})}

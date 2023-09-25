@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FormularioValidacion } from "./validacion.formulario"
-import { ContenedorFormulario,Title,Form,SubTitle,ContainerInputs,Input,InputErrors,MensajeRegistro, Botones, ContenedorBotones } from "../../../styleComponents";
+import { ContenedorFormulario,Title,Form,ContainerInputs,Input,InputErrors,MensajeRegistro, Botones, ContenedorBotones } from "../../../styleComponents";
 
 
 const LoginForm = () => {
@@ -51,7 +51,6 @@ const LoginForm = () => {
           console.log(data)
         }
       })}>
-        <SubTitle>Ingresa tus datos</SubTitle>
           <ContainerInputs>
             <Input
               type="text"  

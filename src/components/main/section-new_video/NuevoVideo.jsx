@@ -25,7 +25,6 @@ const NuevoVideo = () => {
     }
   };
   
-  console.log(categoryList)
   return(
     <ContenedorFormulario>
 
@@ -33,15 +32,26 @@ const NuevoVideo = () => {
 
         <Form encType="multipart/form-data" onSubmit={handleSubmit((data) => {
           if(isValid){
+            const imageFile = data.image[0]; // Accede al archivo seleccionado
+            const imageName = imageFile.name; // Obtiene el nombre del archivo
+            const videoFile = data.video[0];
+            const videoName = videoFile.name;
             const newFormData = {
               ...data,
-              id:nanoid()
+              id: nanoid(),
+              title: data.title,
+              video: videoName,
+              image: imageName, // Agrega el nombre del archivo
+              category: data.category,
+              comments: data.comments,
+              securityCode: data.securityCode,
             }
             console.log(newFormData)
             // const currentData = formData || [];
             // const newData = [...currentData, newFormData]
+            // console.log(newData)
             // saveFormData(newData);
-            // reset()
+            reset()
           }
         })}>
           <ContainerInputs>
@@ -59,22 +69,23 @@ const NuevoVideo = () => {
             {errors.title && <InputErrors>{errors.title?.message}</InputErrors>}
 
             <Input 
-              type="text"
-                {...register("video",{
-                  required: "Este campo es requerido",
-                  minLength: {
-                    value: 1,
-                    message: "Minimo un caracter en el campo de video",
-                  }
-                })}
-                placeholder="Link video" />
+              type="file"
+              name="video"
+              id="video"
+              accept="video/*"
+              {...register("video",{
+                required: "Este campo es requerido",
+              })} />
             {errors.video && <InputErrors>{errors.video?.message}</InputErrors>}
 
             <Input 
-                type="file"
-                name="image"
-                {...register("image")}
-                accept="image/*" />
+              type="file"
+              name="image"
+              id="image"
+              {...register("image",{
+                required: "Ingresa una imagen "
+              })}
+              accept="image/*" />
             {errors.image && <InputErrors>{errors.image?.message}</InputErrors>}
 
             <Controller
@@ -96,7 +107,7 @@ const NuevoVideo = () => {
                   options={categoryList}
                   getOptionLabel={e => e.value}           
                 />
-            }} />
+              }} />
             {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
 
             <InputTextarea

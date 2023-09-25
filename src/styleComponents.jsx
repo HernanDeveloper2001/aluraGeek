@@ -28,21 +28,11 @@ export const Form = styled.form`
   align-items: center;
   border-radius: 5px;
   border: 1px solid #5f5a5a;
-  box-shadow: 10px 10px 10px -10px;
   padding: 30px 30px;
   margin-bottom: 40px;
   margin: ${props => props.margin || "none"};
   @media(max-width:768px){
     width:80%;
-  }
-`
-export const SubTitle = styled.h3`
-  color: #fff;
-  font-size: 2.5vw;
-  text-align: center;
-  font-family: 'Roboto Mono', monospace;
-  @media(max-width:768px){
-    font-size: 1.5rem;
   }
 `
 export const ContainerInputs = styled.div`
@@ -63,13 +53,13 @@ export const Input = styled.input`
   font-family: 'Roboto Mono', monospace;
   color:#fff;
   background-color: transparent;
-  font-size: 1.2vw;
+  font-size: 1.2rem;
   box-sizing: border-box;
   outline: none;
   border-bottom: 1px solid #ccc;
   width: 100%;
   @media (max-width: 768px){
-    font-size:15px;
+    font-size:16px;
   }
 `
 export const InputTextarea = styled.textarea`
@@ -98,6 +88,9 @@ export const InputTextarea = styled.textarea`
   &::-webkit-scrollbar-thumb:hover{
     background-color: #9E9E9E;
     
+  }
+  @media (max-width: 768px){
+    font-size:15px;
   }
   
 `
@@ -190,6 +183,9 @@ export const Table = styled.table`
   font-family: 'Roboto Mono', monospace;
   width: 90%;
   font-size: 1.2vw;
+  @media(max-width:768px){
+    display: none;
+  }
 `
 export const TableTR = styled.tr`
   border: 1px solid rgba(255,255,225,30%);
