@@ -46,11 +46,10 @@ const NuevoVideo = () => {
               comments: data.comments,
               securityCode: data.securityCode,
             }
-            console.log(newFormData)
-            // const currentData = formData || [];
-            // const newData = [...currentData, newFormData]
-            // console.log(newData)
-            // saveFormData(newData);
+            const currentData = formData || [];
+            const newData = [...currentData, newFormData]
+            console.log(newData)
+            saveFormData(newData);
             reset()
           }
         })}>

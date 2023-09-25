@@ -9,13 +9,12 @@ const ContentListing = styled.article`
   display: flex;
 `
 const CategoryDisplay = styled.article`
+  border-radius: 5px;
   display: flex;
   height: 400px;
   width: 400px;
   flex-direction: column;
   margin: 0 10px;
-  border: 1px solid rgba(255,255,255, 30%);
-  border-radius: 5px;
   cursor: pointer;
   position: relative;
   @media(max-width: 768px){
@@ -30,11 +29,13 @@ const CategoryContainerCode = styled.div`
   justify-content: space-around;
   text-align: center;
   border-radius: 5px;
+  transition: width 2s, height 2s;
   width: 400px;
   @media(max-width: 768px){
     font-size: 16px;
     width: 200px;
   }
+
 `
 const TitleCategoryDisplay = styled.h3`
   font-size:2.5vw;
@@ -50,6 +51,7 @@ const TitleCategoryDisplay = styled.h3`
 const ImageCategoryDisplay = styled.img`
   margin: auto;
   object-fit: cover;
+  border-radius: 5px;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -258,8 +260,7 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
       [name]: value,
     }));
   }
-  
-  console.log(image)
+
   return (
     <ContentListing>
       <CategoryDisplay
