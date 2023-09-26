@@ -1,57 +1,24 @@
 import { useEffect, useState } from "react";
 import { FormularioValidacion } from "./validacion.formulario"
-import { ContenedorFormulario,Title,Form,ContainerInputs,Input,InputErrors,MensajeRegistro, Botones, ContenedorBotones } from "../../../styleComponents";
+import { MainContainer,Title,Form,Input,InputErrors,MensajeRegistro, Botones, ContenedorBotones } from "../../../styleComponents";
 
 
 const LoginForm = () => {
   const { register, handleSubmit, formState:{errors, isValid}, setFocus } = FormularioValidacion()
 
-  const [validation, setValidation] = useState({
-    valid: {
-      color: "",
-      value: ""
-    },
-    invalid: {
-      color: "",
-      value: ""
-    }
-  })
-  
+
   useEffect(() => {
     setFocus("nombre")
   },[setFocus])
 
-  const onHandleValid = () => {
-    if(isValid){
-      setValidation({
-        ...validation,
-        valid: {
-          ...validation.valid,
-          color:"rgba(0,255,0,80%)",
-          value:"Tús datos son correctos",
-        }
-      })
-    }else{
-      setValidation({
-        ...validation,
-        invalid: {
-          ...validation.valid,
-          color: "rgba(255,0,0,80%)",
-          value: "Tús datos son incorrectos"
-        }
-      })
-    }
-  }
-
   return (
-    <ContenedorFormulario>
+    <MainContainer>
       <Title>Formulario</Title>
       <Form onSubmit={handleSubmit((data) => {
         if(isValid){
           console.log(data)
         }
       })}>
-          <ContainerInputs>
             <Input
               type="text"  
               placeholder="Ingresa nombre"
@@ -101,18 +68,12 @@ const LoginForm = () => {
               <Botones
                 border="rgb(42, 122, 228)"
                 color="rgb(42, 122, 228)"
-                onClick={onHandleValid}
                 type="submit"
               >Registrar
               </Botones>
             </ContenedorBotones>
-            
-            {isValid === false 
-            ? <MensajeRegistro style={{color:validation.invalid.color}}>{validation.invalid.value}</MensajeRegistro>
-            : <MensajeRegistro style={{color:validation.valid.color}}>{validation.valid.value}</MensajeRegistro>}
-          </ContainerInputs>
       </Form>
-    </ContenedorFormulario> 
+    </MainContainer> 
   )
 }
 

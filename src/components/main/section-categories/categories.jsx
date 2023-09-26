@@ -2,17 +2,9 @@ import styled from "styled-components";
 import CategoryContent from "./CategoryContent";
 import { useEquipmentCategory } from "../../TeamsContext";
 import { useFormData } from "../../formDataContext";
-import { InputColor,Title } from "../../../styleComponents";
+import { InputColor,Title,MainContainer } from "../../../styleComponents";
 import { useEffect, useState } from "react";
 
-const MainCategory = styled.main`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding: 50px 0;
-`
 const SectionCategorySubTitle = styled.h2`
   font-size: 4vw;
   font-family: 'Roboto Mono', monospace;
@@ -83,7 +75,7 @@ const Categories = () => {
   }
 
   return (
-    <MainCategory>
+    <MainContainer>
       <Title>Categories</Title>
       {categoryList.map((item,i) => {
         const category = item.value;
@@ -97,6 +89,7 @@ const Categories = () => {
           <SectionCategory 
             key={i} style={{background:rgbaColor.backgroundColor, border:rgbaColor.backgroundColor}}>
               <InputColor
+                width="50px"
                 style={{alignSelf:"end"}}
                 type="color" 
                 onChange={(event) => handleColor(event,i)}
@@ -115,7 +108,7 @@ const Categories = () => {
           </SectionCategory>
           )})
         }
-      </MainCategory>
+    </MainContainer>
   );
  
 }

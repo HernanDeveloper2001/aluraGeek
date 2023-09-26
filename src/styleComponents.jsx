@@ -2,11 +2,13 @@ import styled from "styled-components";
 import Select from "react-select"
 import { Link } from "react-router-dom";
 
-export const ContenedorFormulario = styled.section`
+export const MainContainer = styled.section`
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 50px 0;
+  width: 100%;
 `
 export const Title = styled.h2`
   font-size: 7vw;
@@ -19,33 +21,25 @@ export const Title = styled.h2`
   }
 `
 export const Form = styled.form`
-  background-color: transparent;
-  width: ${props => props.width || "50%"};
+  width: 90%;
   height: auto;
   display: flex;
+  gap: 3em;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   border-radius: 5px;
   border: 1px solid #5f5a5a;
-  padding: 30px 30px;
+  padding: 50px 0;
   margin-bottom: 40px;
   margin: ${props => props.margin || "none"};
   @media(max-width:768px){
     width:80%;
   }
 `
-export const ContainerInputs = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin: 40px;
-  @media(max-width:768px){
-    width: 100%;
-    font-size: 1.5rem;
-  }
-`
+
 export const Input = styled.input`
+  width: 90%;
   height: 50px;
   text-indent: 10px;
   border-radius: 5px;
@@ -54,16 +48,17 @@ export const Input = styled.input`
   color:#fff;
   background-color: transparent;
   font-size: 1.2rem;
-  box-sizing: border-box;
   outline: none;
   border-bottom: 1px solid #ccc;
-  width: 100%;
+  z-index: 2;
   @media (max-width: 768px){
     font-size:16px;
   }
 `
+
 export const InputTextarea = styled.textarea`
   outline: none;
+  width: 90%;
   background-color:transparent;
   font-size: 1.2vw;
   border: none;
@@ -107,8 +102,7 @@ export const MensajeRegistro = styled.p`
   text-align:center;
 `
 export const InputSelect = styled(Select)`
-  height: 50px;
-  width: 100%;
+  width: 90%;
   outline-color: none;
   font-size:18px;
   font-family: 'Roboto Mono', monospace;
@@ -131,30 +125,32 @@ export const Botones = styled.button`
   }
   @media(max-width: 768px){
     font-size: 20px;
-    width: 50%;
+    width: 90%;
     font-size: 16px;
     padding: 5px;
   }
 `
 export const BotonesLinks = styled(Link)`
   width: ${props => props.width || null};
+  height: ${props => props.height || null};
   text-decoration: none;
   font-size: 1vw;
   text-align: center;
-  padding:18px;
+  padding:${props => props.padding || "18px"};
   font-family: 'Roboto Mono', monospace;
   cursor: pointer;
   border-radius: 5px;
-  background-color: ${props => props.color || "rgb(42, 122, 228)"};
+  background-color: ${props => props.color || null};
   border:${props => props.border || null};
   color:#fff;
-
+  position: ${props => props.position || null};
+  z-index:${props => props.zIndex || null};
   &:hover {
     ${props => props.hoverstyles && props.hoverstyles }; 
   }
   @media(max-width: 768px){
     font-size: 20px;
-    width: 50%;
+    width: 90%;
     font-size: 16px;
     padding: 5px;
   }
@@ -173,12 +169,17 @@ export const ContenedorBotones = styled.div`
 `
 export const InputColor = styled.input`
   float: right;
-  width: ${props => props.width || null};
-  height: ${props => props.height || null};
+  width: ${props => props.width || "90%"};
+  height: 50px;
   border-radius: 5px;
+  @media(max-width:768px){
+    width: 40px;
+    height:40px;
+  }
 `
 export const Table = styled.table`
-  border: 1px solid rgba(255,255,225,30%);
+  border: 1px dashed rgba(255,255,225,30%);
+  text-align: center;
   font-family: 'Roboto Mono', monospace;
   width: 90%;
   font-size: 1.2vw;

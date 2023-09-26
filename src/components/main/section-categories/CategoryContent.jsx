@@ -1,8 +1,7 @@
 import styled from "styled-components"
 import { useState } from "react"
 import {AiOutlineCloseCircle, AiFillEdit} from "react-icons/ai";
-import { useFormData } from "../../formDataContext";
-import { Botones, Input, ContenedorBotones, InputTextarea, ContainerInputs, Form, BotonesLinks } from "../../../styleComponents";
+import { ContenedorBotones,BotonesLinks } from "../../../styleComponents";
 
 const ContentListing = styled.article`
   padding-bottom: 20px;
@@ -22,20 +21,6 @@ const CategoryDisplay = styled.article`
     width: 200px;
     height: 200px;
   }
-`
-const CategoryContainerCode = styled.div`
-  display:flex;
-  flex-direction: column;
-  justify-content: space-around;
-  text-align: center;
-  border-radius: 5px;
-  transition: width 2s, height 2s;
-  width: 400px;
-  @media(max-width: 768px){
-    font-size: 16px;
-    width: 200px;
-  }
-
 `
 const TitleCategoryDisplay = styled.h3`
   font-size:2.5vw;
@@ -83,29 +68,26 @@ const IconContainer = styled.div`
   width: 100%;
   height: 40px;
   display: flex;
-  z-index:2;
   justify-content: space-between;
-`
-const IconClose = styled.div`
-  height: 40px;
-  border-radius: 5px;
-  width: 40px;
-  position: relative;
+  align-items: center;
+  z-index:2;
   @media(max-width:768px){
-    width:30px;
-    height: 30px;
+
   }
 `
 const IconEdit = styled.div`
+  width:40px;
   height: 40px;
-  border-radius: 5px;
-  width: 40px;
-  position: relative;
-
-  @media(max-width:768px){
-    width:30px;
-    height: 30px;
-  }
+  display:flex;
+  justify-content: center;
+  align-items: center;
+`
+const IconRemove = styled.div`
+  width:40px;
+  height: 40px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 `
 const Text = styled.p`
   font-size:14px;
@@ -120,8 +102,6 @@ const Text = styled.p`
 `
 const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   
-  const {formData, saveFormData} = useFormData()
-  const [tableData, setTableData] = useState(formData);
   const hoverStyles = {
     verde: {
       backgroundColor: "rgba(0, 200, 111, 0.698)",
@@ -130,7 +110,7 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
       backgroundColor: "rgba(229, 57, 53, 0.7)",
     },
   };
-  const {title, comments, id, image, video, securityCode} = formDataNewVideo;
+  const {title, comments,category, id, image, video, securityCode} = formDataNewVideo;
   const {letterColor, cardColor } = rgbaColor;
 
   //mouse --------------------------------
@@ -140,114 +120,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   }
   function handleMouseOut(){
     setMostrarContenido(true)
-  }
-
-  //CodeSecurity
-  const [showCodeWindow, setShowCodeWindow] = useState(false); // estado de la ventana del codeSecurity por defecto
-  const [selectedIdCode, setSelectedIdCode] = useState(null); // id de la ventana del click del boton remove
-  const [openRemoveEvent, setOpenRemoveEvent] = useState(null);
-  //estado de la ventana del codeSecurity = true
-  function openCodeWindow() {
-    setShowCodeWindow(true);
-  }
-  //estado de la ventana del codeSecurity = false
-  function closeCodeWindow(){
-    setShowCodeWindow(false);
-  }
-  // id de la ventana del click del boton remove
-  function handleCodeSecurity(id){
-    setSelectedIdCode(id)
-    openCodeWindow()
-  }
-  // valor del input que verifica si coincide con el del boton
-  const [codeSecurity, setCodeSecurity] = useState("")
-  function inputCodeSecurity(e){
-    const codeSecurityValue = e.target.value;
-    const codeFormData = formData.map((item,i) => item.securityCode[i] === codeSecurityValue)
-    if(!codeFormData){
-      console.log("false")
-    }else{
-      console.log("ture")
-    }
-    setCodeSecurity(codeSecurityValue)
-  }
-  // boton que confirma si el id es el mismo del boton
-  const [intentos, setIntentos] = useState(3);
-
-  function confirmRemove(id) {
-    // Verificar si el código de seguridad es correcto aquí antes de eliminar
-    const codeFormData = Object.values(formData).some(item => item.securityCode === codeSecurity && item.id === id)
-    let intetoscode = 1
-    if (codeFormData) {
-      // Eliminar el elemento de tableData y actualizar formData
-      const updatedTableData = tableData.filter((item) => item.id !== selectedIdCode);
-      setTableData(updatedTableData);
-      saveFormData(updatedTableData);
-    }
-    else if(intetoscode < intentos){
-      alert("El código de seguridad no coincide.");
-      setIntentos(intentos - 1)
-    }
-    else{
-      alert("ninguno de los codigos coincide")
-      closeCodeWindow();
-    }
-  
-  }
-
-
-  //Details category
-  const [showCategoryDetails, setShowCategoryDetails] = useState(false);//estado de la ventana del categoryDetails por defecto
-  const [openEditEvent, setOpenEditEvent] = useState(null);
-  const [selectedIdDetails, setSelectedIdDetails] = useState(null) //id de la ventana del click del boton categoryDetails
-  //estado de la ventana del categoryDetails = true
-  function openCategoryDetails(){
-    setShowCategoryDetails(true)
-  }
-  //estado de la ventana del categoryDetails = false
-  function closeCategoryDetails(){
-    setShowCategoryDetails(false)
-  }
-  const [idCategoryDetails, setIdCategoryDetails] = useState(null)
-  // id de la ventana del click del boton edit
-
-  function handleCategoryDetails(id){
-    const idCategory = formData.find(item => item.id === id)
-    if(idCategory){
-      setSelectedIdDetails(id)
-      openCategoryDetails()
-      setIdCategoryDetails(idCategory)
-    }else{
-      console.log("no se encontraron valores")
-    }
-  }
-
-  function onClickSave(id) {
-    // Encuentra el índice del elemento con el ID coincidente en formData
-    const indiceItem = formData.findIndex((item) => item.id === id);
-  
-    if (indiceItem !== -1) {
-      // Actualiza el elemento en formData
-      const formDataActualizada = [...formData];
-      formDataActualizada[indiceItem] = idCategoryDetails; // Suponiendo que idCategoryDetails contiene los datos actualizados
-  
-      // Guarda formDataActualizada en la base de datos usando saveFormData
-      saveFormData(formDataActualizada);
-  
-      // Cierra la sección de edición o realiza cualquier otra acción necesaria
-      closeCategoryDetails();
-    }
-  }
-
-  function handlerUpdateData(target) {
-    // registerUpdateData
-    const { name, value } = target;
-
-    // Actualiza los datos en idCategoryDetails
-    setIdCategoryDetails((prevDetails) => ({
-      ...prevDetails,
-      [name]: value,
-    }));
   }
 
   return (
@@ -261,33 +133,46 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
         ? <>
             <IconContainer>
               <IconEdit>
-                <AiFillEdit
-                  onClick={() => {
-                    if (openEditEvent === id) {
-                      setOpenEditEvent(null); // Cierra el evento "Edit" si ya estaba abierto
-                    } else {
-                      handleCategoryDetails(id)
-                      setOpenEditEvent(id);
-                      setOpenRemoveEvent(null); // Cierra el evento "Remove" si está abierto
-                    }
-                  }}
-                  style={{width:"100%", height:"100%", color:letterColor, position:"absolute"}}>
-                </AiFillEdit>
+                <BotonesLinks
+                  zIndex="2"
+                  padding="0"
+                  to="/details"
+                  state={{
+                    title, 
+                    comments, 
+                    id, 
+                    image,
+                    video,
+                    category }}>
+                    <AiFillEdit
+                      style={{   
+                        width:"100%",
+                        height:"100%",                 
+                        color:letterColor}}>
+                    </AiFillEdit>    
+                </BotonesLinks>
               </IconEdit>
 
-              <IconClose>
-                <AiOutlineCloseCircle 
-                  style={{width:"100%", height:"100%", color:letterColor, position:"absolute"}}
-                  onClick={() => {
-                    if (openRemoveEvent === id) {
-                      setOpenRemoveEvent(null); // Cierra el evento "Remove" si ya estaba abierto
-                    } else {
-                      handleCodeSecurity(id);
-                      setOpenRemoveEvent(id);
-                      setOpenEditEvent(null); // Cierra el evento "Edit" si está abierto
-                    }
-                  }} />
-              </IconClose>
+              <IconRemove >
+                <BotonesLinks 
+                  zIndex="2"
+                  padding="0"
+                  to="/delete"
+                  state={{
+                    title, 
+                    comments, 
+                    id, 
+                    image,
+                    video,
+                    category}}>
+                  <AiOutlineCloseCircle
+                    style={{
+                      width:"100%",
+                      height:"100%",
+                      color:letterColor}}/>
+                </BotonesLinks>
+              </IconRemove>
+
             </IconContainer>
 
             <TitleCategoryDisplay 
@@ -304,34 +189,48 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
           </> 
         : <>
             <IconContainer>
+
               <IconEdit>
-                <AiFillEdit
-                  style={{width:"100%", height:"100%", color:letterColor, position:"absolute"}}
-                  onClick={() => {
-                    if (openEditEvent === id) {
-                      setOpenEditEvent(null); // Cierra el evento "Edit" si ya estaba abierto
-                    } else {
-                      handleCategoryDetails(id)
-                      setOpenEditEvent(id);
-                      setOpenRemoveEvent(null); // Cierra el evento "Remove" si está abierto
-                    }
-                  }}>
-                </AiFillEdit>
+                <BotonesLinks
+                  zIndex="2"
+                  padding="0"
+                  to="/details"
+                  state={{
+                    title, 
+                    comments, 
+                    id, 
+                    image,
+                    video,
+                    category }}>
+                    <AiFillEdit
+                      style={{   
+                        width:"100%",
+                        height:"100%",                 
+                        color:letterColor}}>
+                    </AiFillEdit>    
+                </BotonesLinks>
               </IconEdit>
 
-              <IconClose>
-                <AiOutlineCloseCircle
-                  style={{width:"100%", height:"100%", color:letterColor}}
-                  onClick={() => {
-                    if (openRemoveEvent === id) {
-                      setOpenRemoveEvent(null); // Cierra el evento "Remove" si ya estaba abierto
-                    } else {
-                      handleCodeSecurity(id);
-                      setOpenRemoveEvent(id);
-                      setOpenEditEvent(null); // Cierra el evento "Edit" si está abierto
-                    }
-                  }}/>
-              </IconClose>
+              <IconRemove>
+                <BotonesLinks 
+                  zIndex="2"
+                  padding="0"
+                  to="/delete"
+                  state={{
+                    title, 
+                    comments, 
+                    id, 
+                    image,
+                    video,
+                    category}}>
+                  <AiOutlineCloseCircle
+                    style={{
+                      width:"100%",
+                      height:"100%",
+                      color:letterColor}}/>
+                </BotonesLinks>
+              </IconRemove>
+
             </IconContainer>
             
             <CommentsCategoryDisplay
@@ -353,102 +252,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
           </>
         }
       </CategoryDisplay>
-      {selectedIdCode === id && openRemoveEvent === id 
-        ? showCodeWindow 
-          &&(
-            <CategoryContainerCode style={{border:cardColor, backgroundColor:cardColor}}>
-              <p 
-                style={{
-                  fontFamily:"Roboto Slab"}}>Ingresa código de seguridad</p>
-              <p 
-                style={{
-                  fontFamily:"Roboto Slab"}}>Tienes {intentos} intentos</p>
-              <Input
-                width="50%"
-                name="codeSecurity" 
-                value={codeSecurity} 
-                placeholder="Enter code security"
-                onChange={inputCodeSecurity} />
-              <ContenedorBotones>
-                <Botones
-                  hoverstyles={hoverStyles.verde}
-                  color="rgb(0, 200, 111)"
-                  border="rgb(0, 200, 111)"
-                  padding="5px"
-                  onClick={confirmRemove} >Enter</Botones>
-                <Botones
-                  hoverstyles={hoverStyles.rojo}
-                  padding="5px"
-                  color="rgb(229, 57, 53)"
-                  border="rgb(229, 57, 53)"
-                  onClick={closeCodeWindow}>Cancel</Botones>
-              </ContenedorBotones>
-            </CategoryContainerCode>
-          )
-        :(selectedIdDetails === id && openEditEvent === id)  &&
-        showCategoryDetails
-        &&(
-          <Form width="400px" style={{backgroundColor:cardColor, border:cardColor}}>
-            <ContainerInputs>
-              <Input
-                type="text" 
-                name="title"
-                placeholder="title" 
-                defaultValue={idCategoryDetails.title}
-                onChange={(e) => handlerUpdateData(e.target)}/>
-
-              <Input
-                type="text" 
-                name="title"
-                placeholder="title" 
-                defaultValue={idCategoryDetails.category}
-                onChange={(e) => handlerUpdateData(e.target)}/>
-                            
-              <Input 
-                type="text"
-                name="video"
-                placeholder="Link video" 
-                defaultValue={idCategoryDetails.video}
-                onChange={(e) => handlerUpdateData(e.target)}/>
-                            
-
-              <Input 
-                type="text"
-                name="image"
-                placeholder="Link image" 
-                defaultValue={idCategoryDetails.image}
-                onChange={(e) => handlerUpdateData(e.target)} />
-                            
-
-              <InputTextarea
-                type="text"
-                name="comments"
-                placeholder="add a comments" 
-                defaultValue={idCategoryDetails.comments}
-                onChange={(e) => handlerUpdateData(e.target)} />
-                            
-              <ContenedorBotones>
-                <Botones
-                  onClick={() => onClickSave(idCategoryDetails.id)}
-                  type="submit"
-                  hoverstyles={hoverStyles.enter}
-                  border="rgb(0, 200, 111)" 
-                  color="rgb(0, 200, 111)"
-                  text="save"> Enter
-                </Botones>
-                <Botones
-                  onClick={closeCategoryDetails}
-                  hoverstyles={hoverStyles.cancel}
-                  border="rgb(229, 57, 53)" 
-                  color="rgb(229, 57, 53)"
-                  text="clear" 
-                  type="reset"> Cancel
-                </Botones>
-              </ContenedorBotones>
-            </ContainerInputs>
-          </Form>
-        )
-      }
     </ContentListing>
   )
 }

@@ -39,10 +39,7 @@ const Imagen = styled.img`
 
 const MainNavegacion = () => {
   const hoverStyles = {
-    register: {
-      backgroundColor: "rgba(42, 122, 228,0.7)",
-    },
-    newVideo: {
+    azul: {
       backgroundColor: "rgba(42, 122, 228,0.7)",
     },
   };
@@ -57,12 +54,14 @@ const MainNavegacion = () => {
           </ContenedorImagen>
           <ContenedorBotones>
             <BotonesLinks 
-              hoverstyles={hoverStyles.register}
+              color="rgb(42, 122, 228)"
+              hoverstyles={hoverStyles.azul}
               to="/registro">
               Registro
             </BotonesLinks>
             <BotonesLinks 
-              hoverstyles={hoverStyles.newVideo}
+              color="rgb(42, 122, 228)"
+              hoverstyles={hoverStyles.azul}
               to="/nuevo-video"
               >Nuevo video
             </BotonesLinks>
