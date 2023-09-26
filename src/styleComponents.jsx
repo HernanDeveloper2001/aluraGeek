@@ -134,7 +134,6 @@ export const Botones = styled.button`
     width: 50%;
     font-size: 16px;
     padding: 5px;
-
   }
 `
 export const BotonesLinks = styled(Link)`
@@ -153,8 +152,8 @@ export const BotonesLinks = styled(Link)`
   &:hover {
     ${props => props.hoverstyles && props.hoverstyles }; 
   }
-
   @media(max-width: 768px){
+    font-size: 20px;
     width: 50%;
     font-size: 16px;
     padding: 5px;

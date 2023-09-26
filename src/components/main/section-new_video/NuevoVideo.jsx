@@ -48,7 +48,6 @@ const NuevoVideo = () => {
             }
             const currentData = formData || [];
             const newData = [...currentData, newFormData]
-            console.log(newData)
             saveFormData(newData);
             reset()
           }

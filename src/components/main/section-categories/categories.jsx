@@ -50,17 +50,6 @@ const SectionCard = styled.div`
 
   
 `
-const CategoriesVideo = styled.article`
-  width: 100%;
-  height: 600px;
-  border: 1px solid rgba(255,255,255, 30%);
-  border-radius: 5px 5px 0 0;
-
-`
-const InputVideo = styled.video`
-  width:100%;
-  height: 100%;
-`
 
 const Categories = () => {
   const {categoryList} = useEquipmentCategory()

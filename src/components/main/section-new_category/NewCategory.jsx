@@ -1,4 +1,4 @@
-import { Input, ContenedorFormulario, Title, Form, ContainerInputs, InputErrors, InputColor, ContenedorBotones, Botones,Table, TableTD, TableTR, TableTH, InputTextarea, DivTd } from "../../../styleComponents";
+import { Input, ContenedorFormulario, Title, Form, ContainerInputs, InputErrors, InputColor, ContenedorBotones, Botones,Table, TableTD, TableTR, TableTH, InputTextarea, DivTd, BotonesLinks } from "../../../styleComponents";
 import {  useForm } from "react-hook-form";
 import { useEquipmentCategory } from "../../TeamsContext";
 import { useFormData } from "../../formDataContext";
@@ -52,7 +52,6 @@ const NewCategory = () => {
   }
   // valor del input que verifica si coincide con el del boton
   const [codeSecurity, setCodeSecurity] = useState("")
-  console.log(formData)
   function inputCodeSecurity(e){
     const codeSecurityValue = e.target.value;
     const codeFormData = formData.map((item,i) => item.securityCode[i] === codeSecurityValue)
@@ -229,13 +228,23 @@ const NewCategory = () => {
                   </TableTD>
 
                   <TableTD>
-                    <DivTd style={{background:"green"}}>
+                    <DivTd>
                       {item.comments}
                     </DivTd>
                   </TableTD>
 
                   <TableTD >
-                    <Botones
+                    <BotonesLinks
+                      to="/details" 
+                      state={{
+                        title:item.title,
+                        comments:item.comments,
+                        securityCode:item.securityCode,
+                        category:item.category,
+                        id:item.id,
+                        video:item.video,
+                        image:item.image
+                      }}
                       hoverstyles={hoverStyles.amarillo}
                       onClick={() => {
                         if (openEditEvent === item.id) {
@@ -250,7 +259,7 @@ const NewCategory = () => {
                       color="rgb(255, 186, 5)"
                       border="rgb(255, 186, 5)">
                       Edit
-                    </Botones>
+                    </BotonesLinks>
                   </TableTD>
 
                   <TableTD >
@@ -312,79 +321,9 @@ const NewCategory = () => {
                       </TableTD>
                     </>
                   )
-                ):(selectedIdDetails === item.id && openEditEvent === item.id)  &&
-                  showCategoryDetails
-                  &&(
-                    <TableTR>
-                      <TableTH colSpan={2}>
-                        update data
-                      </TableTH>
-                      <TableTD colSpan={5}>
-                        <Form>
-                          <ContainerInputs>
-                            <Input
-                              type="text" 
-                              name="title"
-                              placeholder="title" 
-                              defaultValue={idCategoryDetails.title}
-                              onChange={(e) => handlerUpdateData(e.target)}/>
-
-                            <Input
-                              type="text" 
-                              name="title"
-                              placeholder="title" 
-                              defaultValue={idCategoryDetails.category}
-                              onChange={(e) => handlerUpdateData(e.target)}/>
-                            
-                            <Input 
-                              type="text"
-                              name="video"
-                              placeholder="Link video" 
-                              defaultValue={idCategoryDetails.video}
-                              onChange={(e) => handlerUpdateData(e.target)}/>
-                            
-
-                            <Input 
-                              type="text"
-                              name="image"
-                              placeholder="Link image" 
-                              defaultValue={idCategoryDetails.image}
-                              onChange={(e) => handlerUpdateData(e.target)} />
-                            
-
-                            <InputTextarea
-                              type="text"
-                              name="comments"
-                              placeholder="add a comments" 
-                              defaultValue={idCategoryDetails.comments}
-                              onChange={(e) => handlerUpdateData(e.target)} />
-                            
-                            <ContenedorBotones>
-                                <Botones
-                                  onClick={() => onClickSave(idCategoryDetails.id)}
-                                  type="submit"
-                                  hoverstyles={hoverStyles.enter}
-                                  border="rgb(0, 200, 111)" 
-                                  color="rgb(0, 200, 111)"
-                                  text="save">
-                                    enter
-                                </Botones>
-                                <Botones
-                                  onClick={closeCategoryDetails}
-                                  hoverstyles={hoverStyles.cancel}
-                                  border="rgb(229, 57, 53)" 
-                                  color="rgb(229, 57, 53)"
-                                  text="clear" 
-                                  type="reset">
-                                    Cancel
-                                </Botones>
-                            </ContenedorBotones>
-
-                          </ContainerInputs>
-                        </Form>
-                      </TableTD>
-                    </TableTR>
-                  )
+                ):null
+                // (selectedIdDetails === item.id && openEditEvent === item.id)  &&
+                //   showCategoryDetails
                 }
               </tbody>
           )})}

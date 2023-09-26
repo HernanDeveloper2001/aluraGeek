@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { useState } from "react"
 import {AiOutlineCloseCircle, AiFillEdit} from "react-icons/ai";
 import { useFormData } from "../../formDataContext";
-import { Botones, Input, ContenedorBotones, InputTextarea, ContainerInputs, Form } from "../../../styleComponents";
+import { Botones, Input, ContenedorBotones, InputTextarea, ContainerInputs, Form, BotonesLinks } from "../../../styleComponents";
 
 const ContentListing = styled.article`
   padding-bottom: 20px;
@@ -133,16 +133,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   const {title, comments, id, image, video, securityCode} = formDataNewVideo;
   const {letterColor, cardColor } = rgbaColor;
 
-  //video ---------------------------------
-  const [showVideo, setShowVideo] = useState(false);
-  function handleVideoOpen(id){
-    setSelectedItemId(id)
-    setShowVideo(true)
-  }
-  function handleVideoClose(){
-    setShowVideo(false)
-  }
-
   //mouse --------------------------------
   const [mostrarContenido, setMostrarContenido] = useState(true)
   function handleMouseOver(){
@@ -152,7 +142,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
     setMostrarContenido(true)
   }
 
-  //code
   //CodeSecurity
   const [showCodeWindow, setShowCodeWindow] = useState(false); // estado de la ventana del codeSecurity por defecto
   const [selectedIdCode, setSelectedIdCode] = useState(null); // id de la ventana del click del boton remove
@@ -352,23 +341,14 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
             </CommentsCategoryDisplay>
 
             <ContenedorBotones>
-              {
-                showVideo 
-                ?<Botones
-                    hoverstyles={hoverStyles.rojo}
-                    width="40%"
-                    padding="5px"
-                    color="rgb(229, 57, 53)"
-                    border="rgb(229, 57, 53)"
-                    onClick={() => handleVideoClose(id)}>ocultar</Botones>
-                :<Botones
-                    hoverstyles={hoverStyles.verde}
-                    padding="5px"
-                    width="40%"
-                    color="rgb(0, 200, 111)"
-                    border="rgb(0, 200, 111)"
-                    onClick={() => handleVideoOpen(id)}>Ver video</Botones>
-              }
+              <BotonesLinks
+                to="/video" state={{video:video}}
+                hoverstyles={hoverStyles.verde}
+                padding="5px"
+                width="40%"
+                color="rgb(0, 200, 111)"
+                border="rgb(0, 200, 111)">Ver video
+              </BotonesLinks>
             </ContenedorBotones>
           </>
         }
