@@ -118,7 +118,7 @@ const Delete = () => {
                 hoverstyles={hoverStyles.enter}
                 border="rgb(0, 200, 111)" 
                 color="rgb(0, 200, 111)"
-                text="save"> enter
+                text="save"> Enter
               </Botones>
 
               <BotonesLinks

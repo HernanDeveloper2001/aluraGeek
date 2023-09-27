@@ -6,22 +6,25 @@ import { InputColor,Title,MainContainer } from "../../../styleComponents";
 import { useEffect, useState } from "react";
 
 const SectionCategorySubTitle = styled.h2`
-  font-size: 4vw;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
-  padding-left: 20px;
   text-transform: uppercase;
   z-index: 99;
   @media(max-width: 768px){
     font-size: 30px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 60px;
+  }
+  @media(min-width:1367px){
+    font-size:80px;
   }
 ` 
 const SectionCategory = styled.section`
   width: 95%;
   border: 1px solid rgba(255,255,255, 30%);
   border-radius: 5px;
-  margin-bottom: 20px;
-  background-color: blue;
+  margin: 20px 0;
 `
 const SectionCard = styled.div`
   display: flex;
@@ -39,8 +42,6 @@ const SectionCard = styled.div`
     background: rgba(255,255,255,20%);
     border-radius:50px;
   }
-
-  
 `
 
 const Categories = () => {

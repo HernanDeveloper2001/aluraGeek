@@ -1,38 +1,45 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/img/LogoMain.svg"
-import { BotonesLinks, ContenedorBotones } from "../../styleComponents";
+import { BotonesLinks, ContenedorBotones, MainContainer } from "../../styleComponents";
 
-const ContenedorNavegacion = styled.nav`
-  width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-`
 const SeccionNavegacion = styled.section`
   width: 95%;
   display: flex;
   padding: 50px 0;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-wrap: wrap;
-  border-bottom: 1px solid rgba(255,255,255, 30%);
-  @media(max-width: 768px){
-    gap:20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 30%);
+  
+  @media (max-width: 768px) {
+    gap: 20px;
   }
-`
+  @media (min-width: 769px) and (max-width: 1024px) {
+    gap: 40px;
+  }
+`;
 const ContenedorImagen = styled.div`
-  width: 300px;
-  height: 70px;
   @media(max-width: 768px){
     width: 100%;
+  }
+  @media(min-width: 769px) and (max-width:1024px){
+    width:100%;
+  }
+  @media(min-width: 1025px){
+    width: 30%;
   }
 `
 const Imagen = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
   @media(max-width: 768px){
+    object-fit: contain;
+  }
+  @media(min-width: 769px) and (max-width:1024px){
+    object-fit: contain;
+  }
+  @media(min-width: 1025px){
     object-fit: contain;
   }
 `
@@ -45,7 +52,7 @@ const MainNavegacion = () => {
   };
   
   return (
-      <ContenedorNavegacion>
+      <MainContainer>
         <SeccionNavegacion>
           <ContenedorImagen>
             <Link to="/">
@@ -67,7 +74,7 @@ const MainNavegacion = () => {
             </BotonesLinks>
           </ContenedorBotones>
         </SeccionNavegacion>
-      </ContenedorNavegacion>
+      </MainContainer>
   );
 };
 

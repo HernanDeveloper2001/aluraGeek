@@ -11,7 +11,6 @@ export const MainContainer = styled.section`
   width: 100%;
 `
 export const Title = styled.h2`
-  font-size: 7vw;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
   padding: 10px;
@@ -19,11 +18,17 @@ export const Title = styled.h2`
   @media(max-width: 768px){
     font-size: 3rem;
   }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 6rem;
+  }
+  @media(min-width: 1367px){
+    font-size: 9rem;
+  }
 `
 export const Form = styled.form`
-  width: 90%;
   height: auto;
   display: flex;
+  box-sizing: border-box;
   gap: 3em;
   flex-direction: column;
   justify-content: space-around;
@@ -34,10 +39,14 @@ export const Form = styled.form`
   margin-bottom: 40px;
   margin: ${props => props.margin || "none"};
   @media(max-width:768px){
-    width:80%;
+    width:90%;
+    gap: 20px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    width:90%;
+    gap: 40px;
   }
 `
-
 export const Input = styled.input`
   width: 90%;
   height: 50px;
@@ -52,10 +61,12 @@ export const Input = styled.input`
   border-bottom: 1px solid #ccc;
   z-index: 2;
   @media (max-width: 768px){
-    font-size:16px;
+    font-size:20px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 40px;
   }
 `
-
 export const InputTextarea = styled.textarea`
   outline: none;
   width: 90%;
@@ -82,18 +93,28 @@ export const InputTextarea = styled.textarea`
   }
   &::-webkit-scrollbar-thumb:hover{
     background-color: #9E9E9E;
-    
   }
   @media (max-width: 768px){
-    font-size:15px;
+    font-size:20px;
+    height: 200px;
   }
-  
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 40px;
+    height: 250px;
+  }
+
 `
 export const InputErrors = styled.p`
   font-size: 18px;
   font-family: 'Roboto Mono', monospace;
   color: rgba(255,0,0,80%);
   padding-left: 10px;
+  @media (max-width: 768px){
+    font-size:20px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 40px;
+  }
 `
 export const MensajeRegistro = styled.p`
   font-size: 18px;
@@ -105,12 +126,19 @@ export const InputSelect = styled(Select)`
   width: 90%;
   outline-color: none;
   font-size:18px;
+  height:50px ;
   font-family: 'Roboto Mono', monospace;
   text-indent: 20px;
   color:#000;
+  @media (max-width: 768px){
+    font-size:20px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 40px;
+  }
+
 `
 export const Botones = styled.button`
-  font-size: 1vw;
   color:#fff;
   font-family: 'Roboto Mono', monospace;
   cursor: pointer;
@@ -126,33 +154,40 @@ export const Botones = styled.button`
   @media(max-width: 768px){
     font-size: 20px;
     width: 90%;
-    font-size: 16px;
-    padding: 5px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 40px;
+    width: 90%;
   }
 `
 export const BotonesLinks = styled(Link)`
-  width: ${props => props.width || null};
-  height: ${props => props.height || null};
   text-decoration: none;
-  font-size: 1vw;
-  text-align: center;
-  padding:${props => props.padding || "18px"};
+  box-sizing: border-box;
   font-family: 'Roboto Mono', monospace;
   cursor: pointer;
   border-radius: 5px;
+  text-align: center;
   background-color: ${props => props.color || null};
   border:${props => props.border || null};
   color:#fff;
   position: ${props => props.position || null};
-  z-index:${props => props.zIndex || null};
+  z-index:4;
   &:hover {
     ${props => props.hoverstyles && props.hoverstyles }; 
   }
   @media(max-width: 768px){
     font-size: 20px;
     width: 90%;
-    font-size: 16px;
-    padding: 5px;
+    padding: 10px;
+  }
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 25px;
+    width: 90%;
+    padding: 20px;
+  }
+  @media(min-width:1025px){
+    font-size: 30px;
+    padding: 30px;
   }
 `
 export const ContenedorBotones = styled.div`
@@ -166,6 +201,16 @@ export const ContenedorBotones = styled.div`
     align-items: center;
     margin: 7px 0;
   }
+  @media(min-width: 769px) and (max-width:1024px){
+    width:100%;
+    background-color: red;
+    flex-direction: column;
+    align-items: center;
+  }
+  @media(min-width: 1025px){
+    width: auto;
+  }
+
 `
 export const InputColor = styled.input`
   float: right;
@@ -176,15 +221,23 @@ export const InputColor = styled.input`
     width: 40px;
     height:40px;
   }
+  @media(min-width: 768px) and (max-width:1366px){
+    width: 80px;
+    height:80px;
+  }
 `
 export const Table = styled.table`
+  width: 90%;
   border: 1px dashed rgba(255,255,225,30%);
   text-align: center;
   font-family: 'Roboto Mono', monospace;
-  width: 90%;
   font-size: 1.2vw;
-  @media(max-width:768px){
+  @media (max-width: 768px){
     display: none;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    width: 100%;
+    font-size:20px;
   }
 `
 export const TableTR = styled.tr`
@@ -192,9 +245,9 @@ export const TableTR = styled.tr`
   height: 50px;
 `
 export const DivTd = styled.div`
+  overflow: scroll;
+  width:100% ;
   height: 100%;
-  width: auto;
-  overflow-y: scroll;
   &::-webkit-scrollbar {
     width: 4px;
   }
@@ -204,20 +257,9 @@ export const DivTd = styled.div`
   }
 `
 export const TableTD = styled.td`
-  width:200px;
+  width:400px;
   height: 200px;
   border: 1px solid rgba(255,255,225,30%);
-  &::-webkit-scrollbar{
-    width: 15px;
-  }
-  &::-webkit-scrollbar-thumb{
-    background-color: rgba(255,255,255, 30%);
-    border-radius: 50px;
-  }
-  &::-webkit-scrollbar-thumb:hover{
-    background-color: rgba(255,255,255, 20%);
-    cursor: pointer;
-  }
 `
 export const TableTH = styled.th`
   border: 1px solid rgba(255,255,225,30%);

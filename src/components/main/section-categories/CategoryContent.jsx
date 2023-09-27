@@ -4,16 +4,15 @@ import {AiOutlineCloseCircle, AiFillEdit} from "react-icons/ai";
 import { ContenedorBotones,BotonesLinks } from "../../../styleComponents";
 
 const ContentListing = styled.article`
-  padding-bottom: 20px;
+  padding: 20px 0;
   display: flex;
 `
 const CategoryDisplay = styled.article`
   border-radius: 5px;
   display: flex;
-  height: 400px;
-  width: 400px;
   flex-direction: column;
-  margin: 0 10px;
+  justify-content: space-between;
+  margin: 0 30px;
   cursor: pointer;
   position: relative;
   @media(max-width: 768px){
@@ -21,16 +20,29 @@ const CategoryDisplay = styled.article`
     width: 200px;
     height: 200px;
   }
+  @media(min-width: 768px) and (max-width:1366px){
+    width:300px;
+    width:300px;
+  }
+  @media(min-width:1367px){
+    height: 400px;
+    width: 400px;
+  }
 `
-const TitleCategoryDisplay = styled.h3`
-  font-size:2.5vw;
+const TitleCategoryDisplay = styled.p`
+  font-weight: 700;
   text-transform: capitalize;
   text-align: center;
   font-family: 'Roboto Slab', serif;
-  margin: 0;
   z-index: 99;
   @media(max-width:768px){
-    font-size: 1.5rem;
+    font-size: 20px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 40px;
+  }
+  @media(min-width:1367px){
+    font-size: 60px;
   }
 `
 const ImageCategoryDisplay = styled.img`
@@ -42,7 +54,6 @@ const ImageCategoryDisplay = styled.img`
   position: absolute;
 `
 const CommentsCategoryDisplay = styled.p`
-  font-size: 20px;
   height: 100%;
   font-family: 'Roboto Slab', serif;
   overflow-y: scroll;
@@ -61,33 +72,52 @@ const CommentsCategoryDisplay = styled.p`
     cursor: pointer;
   }
   @media(max-width: 768px) {
-    font-size: 16px;
+    font-size: 20px;
   }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 25px;
+  }
+  @media(min-width:1367px){
+    font-size: 30px;
+  }
+
 `
 const IconContainer = styled.div`
   width: 100%;
-  height: 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index:2;
-  @media(max-width:768px){
-
-  }
 `
 const IconEdit = styled.div`
-  width:40px;
-  height: 40px;
-  display:flex;
-  justify-content: center;
-  align-items: center;
+  display: flex;
+  @media (max-width:768px){
+    width:30px;
+    height: 30px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    width: 50px;
+    height: 50px;
+  }
+  @media (min-width:1367px){
+    width:70px;
+    height: 70px;
+  }
 `
 const IconRemove = styled.div`
-  width:40px;
-  height: 40px;
-  display:flex;
-  justify-content: center;
-  align-items: center;
+  background-color: blue;
+  @media (max-width:768px){
+    width:30px;
+    height: 30px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    width: 50px;
+    height: 50px;
+  }
+  @media (min-width:1367px){
+    width:70px;
+    height: 70px;
+  }
 `
 const Text = styled.p`
   font-size:14px;
@@ -95,10 +125,16 @@ const Text = styled.p`
   font-family: 'Roboto Slab', serif;
   text-decoration: underline;
   text-underline-offset: 2px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
   z-index: 99;
+  @media(max-width: 768px) {
+    font-size: 15px;
+  }
+  @media(min-width: 768px) and (max-width:1366px){
+    font-size: 20px;
+  }
+  @media(min-width: 1367px) {
+    font-size: 25px;
+  }
 `
 const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   
@@ -134,7 +170,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
             <IconContainer>
               <IconEdit>
                 <BotonesLinks
-                  zIndex="2"
                   padding="0"
                   to="/details"
                   state={{
@@ -155,7 +190,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
 
               <IconRemove >
                 <BotonesLinks 
-                  zIndex="2"
                   padding="0"
                   to="/delete"
                   state={{
@@ -192,7 +226,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
 
               <IconEdit>
                 <BotonesLinks
-                  zIndex="2"
                   padding="0"
                   to="/details"
                   state={{
@@ -213,7 +246,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
 
               <IconRemove>
                 <BotonesLinks 
-                  zIndex="2"
                   padding="0"
                   to="/delete"
                   state={{
