@@ -58,10 +58,10 @@ const Image = styled.img`
   border-radius: 5px;
 `
 const CommentsCategoryDisplay = styled.p`
-  height: 100%;
   font-family: 'Roboto Slab', serif;
   overflow-y: scroll;
   overflow-x: hidden;
+  height: 70%;
   &::-webkit-scrollbar{
     width: 5px;
     background-color: rgba(255,255,255, 30%);
@@ -121,25 +121,6 @@ const IconRemove = styled.div`
   }
   @media (min-width:1025px){
     width:70px;
-  }
-`
-const TextCode = styled.p`
-  font-style: italic;
-  text-overflow: ellipsis;
-  white-space: break-spaces;
-  line-height: 18px;
-  font-family: 'Roboto Slab', serif;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  z-index:4;
-  @media(max-width: 768px) {
-    font-size: 20px;
-  }
-  @media(min-width: 769px) and (max-width:1024px){
-    font-size: 25px;
-  }
-  @media(min-width: 1025px) {
-    font-size: 30px;
   }
 `
 const BotonEditLink = styled(Link)`
@@ -237,11 +218,6 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
             </TitleCategoryDisplay>
 
             <Image src={image} alt="imagen" />
-    
-            <TextCode 
-              style={{color: letterColor}}>
-                {`securityCode: ${securityCode}`}
-            </TextCode>
           </> 
         : <>
             <IconContainer>

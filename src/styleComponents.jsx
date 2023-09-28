@@ -140,21 +140,6 @@ export const InputErrors = styled.p`
     font-size: 24px;
   }
 `
-export const MensajeRegistro = styled.p`
-  font-size: 18px;
-  font-family: 'Roboto Mono', monospace;
-  color: rgba(0,255,0,80%);
-  text-align:center;
-  @media(max-width: 768px) {
-    font-size: 16px;
-  }
-  @media(min-width: 769px) and (max-width:1024px){
-    font-size: 20px;
-  }
-  @media(min-width: 1025px) {
-    font-size: 24px;
-  }
-`
 export const InputSelect = styled(Select)`
   width: 100%;
   outline-color: none;
