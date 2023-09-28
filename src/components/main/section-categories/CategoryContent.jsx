@@ -2,56 +2,60 @@ import styled from "styled-components"
 import { useState } from "react"
 import {AiOutlineCloseCircle, AiFillEdit} from "react-icons/ai";
 import { ContenedorBotones,BotonesLinks } from "../../../styleComponents";
+import { Link } from "react-router-dom";
 
 const ContentListing = styled.article`
   padding: 20px 0;
   display: flex;
 `
 const CategoryDisplay = styled.article`
-  border-radius: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  border-radius: 5px;
   margin: 0 30px;
   cursor: pointer;
   position: relative;
   @media(max-width: 768px){
-    font-size: 16px;
+    font-size: 18px;
     width: 200px;
     height: 200px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    width:300px;
-    width:300px;
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 23px;
+    width:400px;
+    height:400px;
   }
-  @media(min-width:1367px){
-    height: 400px;
-    width: 400px;
+  @media(min-width:1025px){
+    font-size: 28px;
+    height: 600px;
+    width: 600px;
   }
 `
-const TitleCategoryDisplay = styled.p`
+const TitleCategoryDisplay = styled.h3`
   font-weight: 700;
   text-transform: capitalize;
+  line-height: 18px;
+  white-space: break-spaces;
+  text-overflow: ellipsis;
   text-align: center;
   font-family: 'Roboto Slab', serif;
-  z-index: 99;
-  @media(max-width:768px){
-    font-size: 20px;
+  z-index: 2;
+  @media(max-width: 768px) {
+    font-size: 30px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
+  @media(min-width: 769px) and (max-width:1024px){
     font-size: 40px;
   }
-  @media(min-width:1367px){
-    font-size: 60px;
+  @media(min-width: 1025px) {
+    font-size: 50px;
   }
 `
-const ImageCategoryDisplay = styled.img`
-  margin: auto;
-  object-fit: cover;
-  border-radius: 5px;
-  width: 100%;
-  height: 100%;
+const Image = styled.img`
   position: absolute;
+  object-fit: cover;
+  width:100%;
+  height: 100%;
+  border-radius: 5px;
 `
 const CommentsCategoryDisplay = styled.p`
   height: 100%;
@@ -74,10 +78,10 @@ const CommentsCategoryDisplay = styled.p`
   @media(max-width: 768px) {
     font-size: 20px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
+  @media(min-width: 769px) and (max-width:1024px){
     font-size: 25px;
   }
-  @media(min-width:1367px){
+  @media(min-width: 1025px) {
     font-size: 30px;
   }
 
@@ -91,51 +95,71 @@ const IconContainer = styled.div`
 `
 const IconEdit = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media (max-width:768px){
     width:30px;
-    height: 30px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    width: 50px;
-    height: 50px;
+  @media(min-width: 769px) and (max-width:1024px){
+    width:50px;
   }
-  @media (min-width:1367px){
+  @media (min-width:1025px){
     width:70px;
-    height: 70px;
   }
 `
 const IconRemove = styled.div`
-  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   @media (max-width:768px){
     width:30px;
-    height: 30px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    width: 50px;
-    height: 50px;
+  @media(min-width: 769px) and (max-width:1024px){
+    width:50px;
   }
-  @media (min-width:1367px){
+  @media (min-width:1025px){
     width:70px;
-    height: 70px;
   }
 `
-const Text = styled.p`
-  font-size:14px;
+const TextCode = styled.p`
   font-style: italic;
+  text-overflow: ellipsis;
+  white-space: break-spaces;
+  line-height: 18px;
   font-family: 'Roboto Slab', serif;
   text-decoration: underline;
   text-underline-offset: 2px;
-  z-index: 99;
+  z-index:4;
   @media(max-width: 768px) {
-    font-size: 15px;
-  }
-  @media(min-width: 768px) and (max-width:1366px){
     font-size: 20px;
   }
-  @media(min-width: 1367px) {
+  @media(min-width: 769px) and (max-width:1024px){
     font-size: 25px;
   }
+  @media(min-width: 1025px) {
+    font-size: 30px;
+  }
 `
+const BotonEditLink = styled(Link)`
+  padding: 0;
+  width: 100%;
+  text-decoration: none;
+  font-family: 'Roboto Mono', monospace;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+` 
+const BotonRemoveLink = styled(Link)`
+  text-decoration: none;
+  padding: 0;
+  width: 100%;
+  font-family: 'Roboto Mono', monospace;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+` 
 const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
   
   const hoverStyles = {
@@ -169,8 +193,7 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
         ? <>
             <IconContainer>
               <IconEdit>
-                <BotonesLinks
-                  padding="0"
+                <BotonEditLink
                   to="/details"
                   state={{
                     title, 
@@ -185,12 +208,11 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
                         height:"100%",                 
                         color:letterColor}}>
                     </AiFillEdit>    
-                </BotonesLinks>
+                </BotonEditLink>
               </IconEdit>
 
               <IconRemove >
-                <BotonesLinks 
-                  padding="0"
+                <BotonRemoveLink 
                   to="/delete"
                   state={{
                     title, 
@@ -204,7 +226,7 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
                       width:"100%",
                       height:"100%",
                       color:letterColor}}/>
-                </BotonesLinks>
+                </BotonRemoveLink>
               </IconRemove>
 
             </IconContainer>
@@ -214,19 +236,18 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
                 {title}
             </TitleCategoryDisplay>
 
-            <ImageCategoryDisplay src={image} alt="imagen" />
+            <Image src={image} alt="imagen" />
     
-            <Text 
+            <TextCode 
               style={{color: letterColor}}>
-                {`Code: ${securityCode}`}
-            </Text>
+                {`securityCode: ${securityCode}`}
+            </TextCode>
           </> 
         : <>
             <IconContainer>
 
               <IconEdit>
-                <BotonesLinks
-                  padding="0"
+                <BotonEditLink
                   to="/details"
                   state={{
                     title, 
@@ -241,12 +262,11 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
                         height:"100%",                 
                         color:letterColor}}>
                     </AiFillEdit>    
-                </BotonesLinks>
+                </BotonEditLink>
               </IconEdit>
 
               <IconRemove>
-                <BotonesLinks 
-                  padding="0"
+                <BotonRemoveLink 
                   to="/delete"
                   state={{
                     title, 
@@ -260,7 +280,7 @@ const CategoryContent = ({formDataNewVideo, rgbaColor}) => {
                       width:"100%",
                       height:"100%",
                       color:letterColor}}/>
-                </BotonesLinks>
+                </BotonRemoveLink>
               </IconRemove>
 
             </IconContainer>

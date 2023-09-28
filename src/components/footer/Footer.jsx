@@ -1,13 +1,7 @@
 import styled from "styled-components"
 import Logo from "../../assets/img/LogoMain.svg"
+import { MainContainer } from "../../styleComponents"
 
-const FooterContainer = styled.footer`
-  height: 400px;
-  width: 100%;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-`
 const ImageFooter = styled.img`
   width: 50%;
   height: 200px;
@@ -15,9 +9,14 @@ const ImageFooter = styled.img`
 
 const Footer = () => {
   return (
-    <FooterContainer>
+    <MainContainer>
+      <h4>
+        &copy; 2023 - <a 
+          href="https://github.com/HernanDeveloper2001" 
+          target="_blank" 
+          rel="noopener noreferrer">hernan dario</a></h4>
       <ImageFooter src={Logo} alt="logo-imagen-navegacion"></ImageFooter>
-    </FooterContainer>
+    </MainContainer>
   )
 }
 

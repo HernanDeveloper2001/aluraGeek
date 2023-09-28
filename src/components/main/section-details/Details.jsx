@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom"
-import { Input, MainContainer, Form, InputErrors, ContenedorBotones,Title, Botones,InputTextarea, BotonesLinks, InputSelect} from "../../../styleComponents";
+import { Input, MainContainer, Form, InputErrors, ContenedorBotones,Title, Botones,InputTextarea, BotonesLinks, InputSelect, ContainerInputs, Label} from "../../../styleComponents";
 import { useFormData } from "../../formDataContext";
 import { useEquipmentCategory } from "../../TeamsContext";
 import { useState } from "react";
@@ -82,88 +82,102 @@ const Details = () => {
         }
       })}>
 
-        <Input
-          {...register("title",{
-                required: "El campo no puede estar vacio",
-                minLength:{
-                  value: 5,
-                  message: "El campo debe tener como minimo 10 caracteres"
-                }
-              })}
-              type="text" 
-              name="title"
-              placeholder="title" 
-              defaultValue={title}
-          onChange={(e) => handlerUpdateData(e.target)} />
+        <ContainerInputs>
+          <Label>Title</Label>
+          <Input
+            {...register("title",{
+                  required: "El campo no puede estar vacio",
+                  minLength:{
+                    value: 5,
+                    message: "El campo debe tener como minimo 10 caracteres"
+                  }
+                })}
+                type="text" 
+                name="title"
+                placeholder="title" 
+                defaultValue={title}
+            onChange={(e) => handlerUpdateData(e.target)} />
+        </ContainerInputs>
         {errors.title && <InputErrors>{errors.title?.message}</InputErrors>}
-                        
-        <Input 
-          {...register("video",{
-                required: "El campo no puede estar vacio",
-                minLength:{
-                  value: 1,
-                  message: "El campo debe tener como minimo 10 caracteres"
-                }
-              })}
-              type="text"
-              name="video"
-              placeholder="Link video" 
-              defaultValue={video}
-          onChange={(e) => handlerUpdateData(e.target)} />
+
+        <ContainerInputs>
+          <Label>Video</Label>
+          <Input 
+            {...register("video",{
+                  required: "El campo no puede estar vacio",
+                  minLength:{
+                    value: 1,
+                    message: "El campo debe tener como minimo 10 caracteres"
+                  }
+                })}
+                type="text"
+                name="video"
+                placeholder="Link video" 
+                defaultValue={video}
+            onChange={(e) => handlerUpdateData(e.target)} />
+        </ContainerInputs>          
         {errors.video && <InputErrors>{errors.video?.message}</InputErrors>}
-                              
-        <Input 
-          {...register("image",{
-                required: "El campo no puede estar vacio",
-                minLength:{
-                  value: 1,
-                  message: "El campo debe tener como minimo 10 caracteres"
-                }
-              })}
-              type="text"
-              name="image"
-              placeholder="Link image" 
-              defaultValue={image}
-          onChange={(e) => handlerUpdateData(e.target)} />
+
+        <ContainerInputs>
+          <Label>Image</Label>
+          <Input 
+            {...register("image",{
+                  required: "El campo no puede estar vacio",
+                  minLength:{
+                    value: 1,
+                    message: "El campo debe tener como minimo 10 caracteres"
+                  }
+                })}
+                type="text"
+                name="image"
+                placeholder="Link image" 
+                defaultValue={image}
+            onChange={(e) => handlerUpdateData(e.target)} />
+        </ContainerInputs>           
         {errors.image && <InputErrors>{errors.image?.message}</InputErrors>}
 
-        <Controller
-          control={control}
-              name="category"
-              rules={{
-                required: "Este campo es requerido"
-              }}
-              render={({ field: {onChange, onblur, value, name ,ref }}) => {
-                return <InputSelect
-                  name={name}
-                  ref={ref}
-                  onBlur={onblur}
-                  defaultValue={value}
-                  onChange={({value}) =>{
-                    onChange(value)
-                    handlerUpdateData(value)
-                  }}
-                  placeholder="Choose an option"
-                  options={categoryList}
-                  getOptionLabel={e => e.value}           
-                />
-          }} />
+        <ContainerInputs>
+          <Label>Category</Label>
+          <Controller
+            control={control}
+                name="category"
+                rules={{
+                  required: "Este campo es requerido"
+                }}
+                render={({ field: {onChange, onblur, value, name ,ref }}) => {
+                  return <InputSelect
+                    name={name}
+                    ref={ref}
+                    onBlur={onblur}
+                    defaultValue={value}
+                    onChange={({value}) =>{
+                      onChange(value)
+                      handlerUpdateData(value)
+                    }}
+                    placeholder="Choose an option"
+                    options={categoryList}
+                    getOptionLabel={e => e.value}           
+                  />
+            }} />
+        </ContainerInputs>
         {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
                               
-
-        <InputTextarea
-          {...register("comments",{
-            required: "El campo no puede estar vacio",
-            minLength:{
-                  value: 1,
-                  message: "El campo debe tener como minimo 10 caracteres"
-            }
-          })}
-          type="text"
-          name="comments"
-          placeholder="add a comments" 
-          defaultValue={comments}
-          onChange={(e) => handlerUpdateData(e.target)} />
+        <ContainerInputs>
+          <Label>Comments</Label>
+          <InputTextarea
+            {...register("comments",{
+              required: "El campo no puede estar vacio",
+              minLength:{
+                    value: 1,
+                    message: "El campo debe tener como minimo 10 caracteres"
+              }
+            })}
+            type="text"
+            name="comments"
+            placeholder="add a comments" 
+            defaultValue={comments}
+            onChange={(e) => handlerUpdateData(e.target)} />
+        </ContainerInputs>
         {errors.comments && <InputErrors>{errors.comments?.message}</InputErrors>}
                               
         <ContenedorBotones>
@@ -184,6 +198,7 @@ const Details = () => {
             type="reset"> Cancel
           </BotonesLinks>
         </ContenedorBotones>
+        
       </Form>
     </MainContainer>
   )

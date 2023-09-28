@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import Select from "react-select"
 import { Link } from "react-router-dom";
 
@@ -18,37 +18,55 @@ export const Title = styled.h2`
   @media(max-width: 768px){
     font-size: 3rem;
   }
-  @media(min-width: 768px) and (max-width:1366px){
+  @media(min-width: 769px) and (max-width:1024px){
     font-size: 6rem;
   }
-  @media(min-width: 1367px){
+  @media(min-width: 1025px){
     font-size: 9rem;
   }
 `
 export const Form = styled.form`
   height: auto;
   display: flex;
+  padding: 50px 0;
   box-sizing: border-box;
-  gap: 3em;
+  gap: 100px;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   border-radius: 5px;
-  border: 1px solid #5f5a5a;
-  padding: 50px 0;
+  border: 1px solid rgba(255,255,255,30%);
   margin-bottom: 40px;
   margin: ${props => props.margin || "none"};
   @media(max-width:768px){
     width:90%;
-    gap: 20px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
+  @media(min-width: 769px) and (max-width:1024px){
     width:90%;
-    gap: 40px;
+  }
+  @media(min-width:1025px){
+    width:90%;
+  }
+`
+export const ContainerInputs = styled.div`
+  width: 90%;
+  padding: 10px 0;
+`
+export const Label = styled.label`
+  pointer-events: none;
+  font-family: 'Roboto Mono', monospace;
+  @media (max-width: 768px){
+    font-size:18px;
+  }
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 24px;
+  }
+  @media(min-width: 1025px){
+    font-size: 28px;
   }
 `
 export const Input = styled.input`
-  width: 90%;
+  width: 100%;
   height: 50px;
   text-indent: 10px;
   border-radius: 5px;
@@ -56,25 +74,24 @@ export const Input = styled.input`
   font-family: 'Roboto Mono', monospace;
   color:#fff;
   background-color: transparent;
-  font-size: 1.2rem;
   outline: none;
-  border-bottom: 1px solid #ccc;
-  z-index: 2;
+  border-bottom: 1px solid rgba(255,255,255,30%);
   @media (max-width: 768px){
-    font-size:20px;
+    font-size:18px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    font-size: 40px;
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 24px;
+  }
+  @media(min-width: 1025px){
+    font-size: 28px;
   }
 `
 export const InputTextarea = styled.textarea`
   outline: none;
-  width: 90%;
+  width: 100%;
   background-color:transparent;
-  font-size: 1.2vw;
   border: none;
-  border-bottom: 1px solid #ccc;
-  height: 150px;
+  border-bottom: 1px solid rgba(255,255,255,30%);
   padding: 20px;
   color: #fff;
   font-family: 'Roboto Mono', monospace;
@@ -95,12 +112,16 @@ export const InputTextarea = styled.textarea`
     background-color: #9E9E9E;
   }
   @media (max-width: 768px){
-    font-size:20px;
-    height: 200px;
+    font-size:18px;
+    height: 150;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    font-size: 40px;
-    height: 250px;
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 24px;
+    height: 200;
+  }
+  @media(min-width: 1025px){
+    font-size: 28px;
+    height: 250;
   }
 
 `
@@ -109,11 +130,14 @@ export const InputErrors = styled.p`
   font-family: 'Roboto Mono', monospace;
   color: rgba(255,0,0,80%);
   padding-left: 10px;
-  @media (max-width: 768px){
-    font-size:20px;
+  @media(max-width: 768px) {
+    font-size: 16px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    font-size: 40px;
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 20px;
+  }
+  @media(min-width: 1025px) {
+    font-size: 24px;
   }
 `
 export const MensajeRegistro = styled.p`
@@ -121,9 +145,18 @@ export const MensajeRegistro = styled.p`
   font-family: 'Roboto Mono', monospace;
   color: rgba(0,255,0,80%);
   text-align:center;
+  @media(max-width: 768px) {
+    font-size: 16px;
+  }
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 20px;
+  }
+  @media(min-width: 1025px) {
+    font-size: 24px;
+  }
 `
 export const InputSelect = styled(Select)`
-  width: 90%;
+  width: 100%;
   outline-color: none;
   font-size:18px;
   height:50px ;
@@ -131,10 +164,13 @@ export const InputSelect = styled(Select)`
   text-indent: 20px;
   color:#000;
   @media (max-width: 768px){
-    font-size:20px;
+    font-size:18px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    font-size: 40px;
+  @media(min-width: 769px) and (max-width:1024px){
+    font-size: 24px;
+  }
+  @media(min-width: 1025px){
+    font-size: 28px;
   }
 
 `
@@ -143,7 +179,6 @@ export const Botones = styled.button`
   font-family: 'Roboto Mono', monospace;
   cursor: pointer;
   border-radius: 5px;
-  padding:${props => props.padding || "18px"};
   width: ${props => props.width || null};
   background-color: ${props => props.color || null};
   margin: ${props => props.margin || null};
@@ -152,12 +187,18 @@ export const Botones = styled.button`
     ${props => props.hoverstyles && props.hoverstyles};
   }
   @media(max-width: 768px){
+    font-size: 15px;
+    width: 90%;
+    padding: 5px;
+  }
+  @media(min-width: 769px) and (max-width:1024px){
     font-size: 20px;
     width: 90%;
+    padding: 10px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
-    font-size: 40px;
-    width: 90%;
+  @media(min-width:1025px){
+    font-size: 25px;
+    padding: 15px;
   }
 `
 export const BotonesLinks = styled(Link)`
@@ -175,26 +216,30 @@ export const BotonesLinks = styled(Link)`
   &:hover {
     ${props => props.hoverstyles && props.hoverstyles }; 
   }
+
   @media(max-width: 768px){
+    font-size: 15px;
+    width: 90%;
+    padding: 5px;
+  }
+
+  @media(min-width: 769px) and (max-width:1024px){
     font-size: 20px;
     width: 90%;
     padding: 10px;
   }
-  @media(min-width: 769px) and (max-width:1024px){
-    font-size: 25px;
-    width: 90%;
-    padding: 20px;
-  }
+
   @media(min-width:1025px){
-    font-size: 30px;
-    padding: 30px;
+    font-size: 25px;
+    padding: 15px;
   }
+
+
 `
 export const ContenedorBotones = styled.div`
   display:flex;
   gap: 1rem;
   margin: ${props => props.margin || "none"};
-  justify-content: ${props => props.justifyContent || "none"};
   @media(max-width: 768px){
     width: 100%;
     flex-direction: column;
@@ -203,28 +248,40 @@ export const ContenedorBotones = styled.div`
   }
   @media(min-width: 769px) and (max-width:1024px){
     width:100%;
-    background-color: red;
     flex-direction: column;
     align-items: center;
   }
   @media(min-width: 1025px){
     width: auto;
+    justify-content:center;
+    align-items: center;
   }
 
 `
 export const InputColor = styled.input`
   float: right;
-  width: ${props => props.width || "90%"};
-  height: 50px;
   border-radius: 5px;
-  @media(max-width:768px){
-    width: 40px;
-    height:40px;
-  }
-  @media(min-width: 768px) and (max-width:1366px){
-    width: 80px;
-    height:80px;
-  }
+
+  ${props => props.movil && css`
+    @media(max-width: 768px){
+      width: 100%;
+      height:40px;
+    }
+  `}
+
+  ${props => props.tablet && css`
+    @media(min-width: 769px) and (max-width:1024px){
+      width: 100%;
+      height:60px;
+    }
+  `}
+
+  ${props => props.desktop && css`
+    @media(min-width: 1025px){
+      width: 100%;
+      height: 80px;
+    }
+  `}
 `
 export const Table = styled.table`
   width: 90%;

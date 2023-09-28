@@ -1,4 +1,4 @@
-import { MainContainer,Title,Form,Input,InputErrors,InputTextarea,InputSelect, ContenedorBotones, Botones, BotonesLinks } from "../../../styleComponents";
+import { MainContainer,Title,Form,Input,InputErrors,InputTextarea,InputSelect, ContenedorBotones, Botones, BotonesLinks, ContainerInputs, Label } from "../../../styleComponents";
 import { useForm, Controller } from "react-hook-form"
 import { useEquipmentCategory } from "../../TeamsContext";
 import { useFormData } from "../../formDataContext";
@@ -51,19 +51,23 @@ const NuevoVideo = () => {
         }
       })}>
 
-      <Input
-        type="text" 
-        {...register("title",{
-          required: "Este campo es requerido",
-          minLength: {
-            value: 1,
-            message: "Minimo un caracter en el campo de titulo"
-            }
-          })}
-        placeholder="title" />
+        <ContainerInputs>
+          <Label>Title</Label>
+          <Input
+            type="text" 
+            {...register("title",{
+              required: "Este campo es requerido",
+              minLength: {
+                value: 1,
+                message: "Minimo un caracter en el campo de titulo"
+                }
+              })}
+            placeholder="Enter a title" />
+        </ContainerInputs>
+        {errors.title && <InputErrors>{errors.title?.message}</InputErrors>}
 
-      {errors.title && <InputErrors>{errors.title?.message}</InputErrors>}
-
+        <ContainerInputs>
+          <Label>Video</Label>
           <Input 
             type="file"
             name="video"
@@ -72,9 +76,11 @@ const NuevoVideo = () => {
             {...register("video",{
               required: "Este campo es requerido",
             })} />
-      {errors.video && <InputErrors>{errors.video?.message}</InputErrors>}
+        </ContainerInputs>
+        {errors.video && <InputErrors>{errors.video?.message}</InputErrors>}
 
-
+        <ContainerInputs>
+          <Label>Image</Label>
           <Input 
             type="file"
             name="image"
@@ -83,9 +89,11 @@ const NuevoVideo = () => {
               required: "Ingresa una imagen "
             })}
             accept="image/*" />
+        </ContainerInputs>
+        {errors.image && <InputErrors>{errors.image?.message}</InputErrors>}
 
-      {errors.image && <InputErrors>{errors.image?.message}</InputErrors>}
-
+        <ContainerInputs>
+          <Label>Category</Label>
           <Controller
             control={control}
             name="category"
@@ -103,12 +111,13 @@ const NuevoVideo = () => {
                 }}
                 placeholder="Choose an option"
                 options={categoryList}
-                getOptionLabel={e => e.value}           
-              />
+                getOptionLabel={e => e.value} />
             }} />
-      {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
+        </ContainerInputs>
+        {errors.category && <InputErrors>{errors.category?.message}</InputErrors>}
 
-
+        <ContainerInputs>
+          <Label>Comments</Label>
           <InputTextarea
             {...register("comments",{
               required: "Este campo es requerido",
@@ -117,10 +126,12 @@ const NuevoVideo = () => {
                 message: "Minimo un caracter en el campo de comments",
               }
             })}
-            placeholder="add a comments" />
-      {errors.comments && <InputErrors>{errors.comments?.message}</InputErrors>}
+            placeholder="Enter a comments" />
+        </ContainerInputs>
+        {errors.comments && <InputErrors>{errors.comments?.message}</InputErrors>}
 
-
+        <ContainerInputs>
+          <Label>security Code</Label>
           <Input
             type="text"
               {...register("securityCode",{
@@ -135,36 +146,37 @@ const NuevoVideo = () => {
                 }
               })} 
             placeholder="Enter a security Code (xxxxxxxx)" />
-      {errors.securityCode && <InputErrors>{errors.securityCode?.message}</InputErrors>}
+        </ContainerInputs>
+        {errors.securityCode && <InputErrors>{errors.securityCode?.message}</InputErrors>}
 
-      <ContenedorBotones>
-        <Botones
-          hoverstyles={hoverStyles.save}
-          border="rgb(0, 200, 111)" 
-          color="rgb(0, 200, 111)"
-          text="save" 
-          type="submit">
-            Save
-        </Botones>
-        <Botones
-          hoverstyles={hoverStyles.clear}
-          border="rgb(229, 57, 53)" 
-          color="rgb(229, 57, 53)"
-          text="clear" 
-          type="reset">
-            Clear
-        </Botones>
-        <BotonesLinks
-          to="/new-category"
-          hoverstyles={hoverStyles.new_category}
-          border="rgb(42, 122, 228)"
-          color="rgb(42, 122, 228)"
-          text="new category">
-                  New Category
-          </BotonesLinks>
-      </ContenedorBotones>
+        <ContenedorBotones>
+          <Botones
+            hoverstyles={hoverStyles.save}
+            border="rgb(0, 200, 111)" 
+            color="rgb(0, 200, 111)"
+            text="save" 
+            type="submit">
+              Save
+          </Botones>
+          <Botones
+            hoverstyles={hoverStyles.clear}
+            border="rgb(229, 57, 53)" 
+            color="rgb(229, 57, 53)"
+            text="clear" 
+            type="reset">
+              Clear
+          </Botones>
+          <BotonesLinks
+            to="/new-category"
+            hoverstyles={hoverStyles.new_category}
+            border="rgb(42, 122, 228)"
+            color="rgb(42, 122, 228)"
+            text="new category">
+                    New Category
+            </BotonesLinks>
+        </ContenedorBotones>
 
-        </Form>
+      </Form>
 
     </MainContainer>
   );

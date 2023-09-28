@@ -63,12 +63,6 @@ const MainNavegacion = () => {
             <BotonesLinks 
               color="rgb(42, 122, 228)"
               hoverstyles={hoverStyles.azul}
-              to="/registro">
-              Registro
-            </BotonesLinks>
-            <BotonesLinks 
-              color="rgb(42, 122, 228)"
-              hoverstyles={hoverStyles.azul}
               to="/nuevo-video"
               >Nuevo video
             </BotonesLinks>

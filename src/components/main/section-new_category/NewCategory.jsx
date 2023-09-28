@@ -1,4 +1,4 @@
-import { Input, MainContainer, Title, Form, InputErrors, InputColor, ContenedorBotones, Botones,Table, TableTD, TableTR, TableTH, DivTd, BotonesLinks } from "../../../styleComponents";
+import { Input, MainContainer, Title, Form, InputErrors, InputColor, ContenedorBotones, Botones,Table, TableTD, TableTR, TableTH, DivTd, BotonesLinks, ContainerInputs, Label } from "../../../styleComponents";
 import {  useForm } from "react-hook-form";
 import { useEquipmentCategory } from "../../TeamsContext";
 import { useFormData } from "../../formDataContext";
@@ -47,6 +47,9 @@ const NewCategory = () => {
           reset()
         }
       })}>
+
+        <ContainerInputs>
+          <Label>Title new Category</Label>
           <Input
             type="text" 
             {...register("value",{
@@ -57,15 +60,22 @@ const NewCategory = () => {
               }
             })}
             placeholder="title new category" />
+        </ContainerInputs>
           {errors.value && <InputErrors>{errors.value?.message}</InputErrors>}
 
+        <ContainerInputs>
+          <Label>Choose a color</Label>
           <InputColor
+            movil
+            tablet
+            desktop
             type="color"
             {...register("color",{
               required:"Escoje un color",
               message:"Escoje un color",
             })}
             onChange={handleColor} />
+        </ContainerInputs>
           {errors.color && <InputErrors>{errors.color?.message}</InputErrors>}
 
           <ContenedorBotones>

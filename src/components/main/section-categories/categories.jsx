@@ -11,12 +11,12 @@ const SectionCategorySubTitle = styled.h2`
   text-transform: uppercase;
   z-index: 99;
   @media(max-width: 768px){
-    font-size: 30px;
+    font-size: 40px;
   }
-  @media(min-width: 768px) and (max-width:1366px){
+  @media(min-width: 769px) and (max-width:1024px){
     font-size: 60px;
   }
-  @media(min-width:1367px){
+  @media(min-width:1025px){
     font-size:80px;
   }
 ` 
@@ -90,7 +90,9 @@ const Categories = () => {
           <SectionCategory 
             key={i} style={{background:rgbaColor.backgroundColor, border:rgbaColor.backgroundColor}}>
               <InputColor
-                width="50px"
+                movil
+                tablet
+                desktop
                 style={{alignSelf:"end"}}
                 type="color" 
                 onChange={(event) => handleColor(event,i)}

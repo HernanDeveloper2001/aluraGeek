@@ -1,4 +1,4 @@
-import {ContenedorBotones, MainContainer,Botones,BotonesLinks, Input, Title, InputTextarea, InputErrors, Form } from "../../../styleComponents"
+import {ContenedorBotones, MainContainer,Botones,BotonesLinks, Input, Title, InputTextarea, InputErrors, Form, ContainerInputs, Label } from "../../../styleComponents"
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useFormData } from "../../formDataContext";
@@ -31,7 +31,6 @@ const Delete = () => {
     setCodeSecurity(codeSecurityValue)
   }
 
-
   return (
     <MainContainer>
       <Title>Remove Details</Title>
@@ -52,84 +51,97 @@ const Delete = () => {
           alert("ninguno de los codigos coincide")
         }
       })}>
-            <Input
-              {...register("id")}
-              type="text" 
-              name="id"
-              defaultValue={id}
-              placeholder="id" 
-              disabled
-            />
 
-            <Input
-              {...register("title")}
-              type="text" 
-              name="title"
-              defaultValue={title}
-              placeholder="title" 
-              disabled
-            />
-                        
-            <Input
-              {...register("video")}
-              type="text" 
-              name="video"
-              defaultValue={video}
-              placeholder="video" 
-              disabled
-            />
-                              
-            <Input
-              {...register("image")}
-              type="text" 
-              name="image"
-              defaultValue={image}
-              placeholder="image" 
-              disabled
-            />
+        <ContainerInputs>
+          <Label>Id</Label>
+          <Input
+            {...register("id")}
+            type="text" 
+            name="id"
+            defaultValue={id}
+            disabled />
+        </ContainerInputs>
 
-            <Input
-              {...register("category")}
-              type="text" 
-              name="category"
-              defaultValue={category}
-              placeholder="id" 
-              disabled
-            />
-                          
-            <InputTextarea
-              {...register("comments")}
-              type="text"
-              name="comments"
-              placeholder="add a comments" 
-              defaultValue={comments}
-              disabled
-            />
-            <Input
-              type="text" 
-              placeholder="securityCode" 
-              onChange={inputCodeSecurity}
-            />
+        <ContainerInputs>
+          <Label>Title</Label>
+          <Input
+            {...register("title")}
+            type="text" 
+            name="title"
+            defaultValue={title}
+            disabled />
+        </ContainerInputs>
 
-            <InputErrors>Tienes {intentos} intentos</InputErrors>
-            <ContenedorBotones>
-              <Botones
-                // onClick={() => confirmRemove(id)}
-                hoverstyles={hoverStyles.enter}
-                border="rgb(0, 200, 111)" 
-                color="rgb(0, 200, 111)"
-                text="save"> Enter
-              </Botones>
+        <ContainerInputs>
+          <Label>Video</Label>
+          <Input
+            {...register("video")}
+            type="text" 
+            name="video"
+            defaultValue={video}
+            disabled />
+        </ContainerInputs>       
 
-              <BotonesLinks
-                to="/"
-                hoverstyles={hoverStyles.cancel}
-                border="rgb(229, 57, 53)" 
-                color="rgb(229, 57, 53)"
-                text="clear" 
-                type="reset"> Cancel
-              </BotonesLinks>
-            </ContenedorBotones>
+        <ContainerInputs>
+          <Label>Image</Label>
+          <Input
+            {...register("image")}
+            type="text" 
+            name="image"
+            defaultValue={image}
+            disabled />
+
+        </ContainerInputs>           
+
+        <ContainerInputs>
+          <Label>Category</Label>
+          <Input
+            {...register("category")}
+            type="text" 
+            name="category"
+            defaultValue={category}
+            disabled />
+        </ContainerInputs>
+
+        <ContainerInputs>
+          <Label>Comments</Label>  
+          <InputTextarea
+            {...register("comments")}
+            type="text"
+            name="comments"
+            defaultValue={comments}
+            disabled />
+        </ContainerInputs>   
+
+        <ContainerInputs>
+          <Label>security Code</Label>
+          <Input
+            type="text" 
+            placeholder="securityCode" 
+            onChange={inputCodeSecurity}
+          />
+        </ContainerInputs>
+
+        <InputErrors>Tienes {intentos} intentos</InputErrors>
+
+        <ContenedorBotones>
+          <Botones
+            type="submit"
+            hoverstyles={hoverStyles.enter}
+            border="rgb(0, 200, 111)" 
+            color="rgb(0, 200, 111)"
+            text="save"> Enter
+          </Botones>
+
+          <BotonesLinks
+            to="/"
+            hoverstyles={hoverStyles.cancel}
+            border="rgb(229, 57, 53)" 
+            color="rgb(229, 57, 53)"
+            text="clear" 
+            type="reset"> Cancel
+          </BotonesLinks>
+        </ContenedorBotones>
       </Form>
     </MainContainer>
   )
