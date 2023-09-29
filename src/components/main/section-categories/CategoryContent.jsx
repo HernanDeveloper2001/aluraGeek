@@ -31,7 +31,8 @@ const CategoryDisplay = styled.article`
 const TitleCategoryDisplay = styled.h3`
   font-weight: 700;
   text-transform: capitalize;
-  line-height: 18px;
+  line-height: 30px;
+  height: auto;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: break-spaces;
@@ -39,7 +40,7 @@ const TitleCategoryDisplay = styled.h3`
   font-family: 'Roboto Slab', serif;
   z-index: 2;
   @media(max-width: 768px) {
-    font-size: 20px;
+    font-size: 30px;
   }
   @media(min-width: 769px) and (max-width:1024px){
     font-size: 40px;
