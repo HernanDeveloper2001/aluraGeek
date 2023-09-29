@@ -16,17 +16,14 @@ const CategoryDisplay = styled.article`
   cursor: pointer;
   position: relative;
   @media(max-width: 768px){
-    font-size: 18px;
     width: 200px;
     height: 200px;
   }
   @media(min-width: 769px) and (max-width:1024px){
-    font-size: 23px;
     width:400px;
     height:400px;
   }
   @media(min-width:1025px){
-    font-size: 28px;
     height: 600px;
     width: 600px;
   }
@@ -35,13 +32,15 @@ const TitleCategoryDisplay = styled.h3`
   font-weight: 700;
   text-transform: capitalize;
   line-height: 18px;
+  background-color: red;
   white-space: break-spaces;
-  text-overflow: ellipsis;
   text-align: center;
   font-family: 'Roboto Slab', serif;
   z-index: 2;
   @media(max-width: 768px) {
-    font-size: 30px;
+    font-size: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   @media(min-width: 769px) and (max-width:1024px){
     font-size: 40px;
