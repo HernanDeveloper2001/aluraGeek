@@ -29,7 +29,6 @@ const CategoryDisplay = styled.article`
   }
 `
 const TitleCategoryDisplay = styled.h3`
-
   font-weight: 700;
   text-transform: capitalize;
   line-height: 18px;
